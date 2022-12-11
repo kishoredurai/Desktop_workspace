@@ -2,10 +2,18 @@ import { React } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useGoogleOneTapLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
+import { navigation } from "../constants/credentails";
+
+
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import "./login.css";
 export const Login = () => {
+
+const navigate = useNavigate();
+
+  
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       console.log(response);
@@ -20,6 +28,7 @@ export const Login = () => {
         );
         console.log(data.data);
         setdata(data.data)
+    
       } catch (error) {
         console.log(error);
       }
@@ -30,7 +39,7 @@ export const Login = () => {
   {
 
     sessionStorage.setItem("item_key", JSON.stringify(request));
-
+        navigate("/dashboard")
   }
   useGoogleOneTapLogin({
     onSuccess: (credentialResponse) => {

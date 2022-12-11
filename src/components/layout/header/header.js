@@ -3,22 +3,41 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { navigation } from '../../constants/credentails'
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+
+
+
 const Header = () => {
+
+  const navigate = useNavigate();
+
+
+  const navchanger = (link) =>
+  {
+    navigate(link);
+  }
+
+  const signout = () => {
+      sessionStorage.clear();
+      window.location.reload();
+
+  }
+
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    // const profile = () => {
-    //   var item_value = JSON.parse(sessionStorage.getItem("item_key"));
-    //   console.log(item_value.picture);
-    //   setProfile(item_value.picture);
-    // };
+    const profile = () => {
+      var item_value = JSON.parse(sessionStorage.getItem("item_key"));
+      console.log(item_value.picture);
+      setProfile(item_value.picture);
+    };
 
-    // profile();
+    profile();
   }, []);
 
   return (
@@ -57,7 +76,7 @@ const Header = () => {
                       {navigation.map((item) => (
                         <a
                           key={item.name}
-                          href={item.href}
+                          onClick={()=> navchanger(item.href)}
                           className={classNames(
                             item.current
                               ? "bg-gray-600 text-white"
@@ -122,7 +141,7 @@ const Header = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              onClick={()=> signout()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"

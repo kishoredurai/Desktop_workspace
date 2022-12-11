@@ -5,18 +5,22 @@ import Header from "../../layout/header/header";
 export const Profile = () => {
   const [profile,setProfile]=useState({});
   var item_value = JSON.parse(sessionStorage.getItem("item_key"));
-console.log(item_value.picture);
 const pp=item_value.picture;
   return (
     <>
     <Header />
+      
       <div className="">
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
+      <header className="bg-white ">
+          <div className="mx-auto py-4 mt-3 px-4 sm:px-6 lg:px-8">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900">
+              User Profile
+            </h1>
           </div>
-        </div>
+        </header>
+     
 
-        <div className="mt-10 mx-4 sm:mt-0">
+        <div className=" mx-4 sm:mt-0">
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               {/* <div className="px-4 sm:px-0">
@@ -110,7 +114,7 @@ const pp=item_value.picture;
                         />
                       </div>
 
-                      <div className="col-span-3">
+                      <div className="col-span-6 sm:col-span-3">
                         <label
                           htmlFor="street-address"
                           className="block text-sm font-medium text-gray-700"
@@ -119,9 +123,9 @@ const pp=item_value.picture;
                         </label>
                         <input
                           type="text"
-                          name="street-address"
-                          id="street-address"
-                          autoComplete="street-address"
+                          name="email-address"
+                          id="email-address"
+                          autoComplete="email"
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
