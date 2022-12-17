@@ -24,7 +24,7 @@ const Header = () => {
 
   const signout = () => {
       sessionStorage.clear();
-      window.location.reload();
+      navigate("/login")
 
   }
 
