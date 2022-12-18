@@ -33,13 +33,14 @@ const pp=item_value.picture;
               </div> */}
                <form action="#" method="POST">
                 <div className="bg-blue-50 overflow-hidden shadow shadow-2xl  shadow-gray-1200 sm:rounded-md">
-                  <div className=" px-4 py-5 sm:p-6 justify-self-center">
+                  <div className=" px-4 py-5 sm:p-6 justify-self-center items-center float-center">
                   <img
                               className="rounded-full  border-dashed border-4 border-indigo-600 m-auto"
                               src={pp}
-                              width={200}
+                              width={150}
                               alt=""
                             />
+                             
                   </div>
                  
                 </div>

@@ -3,7 +3,8 @@ const themeDefault = 'dark'
 const namesOfModes = ['dark', 'moonlight', 'eclipse', 'light']
 const navigation = [
     { name: "Dashboard", href: "/dashboard", current: false },
-    { name: "Profile", href: "/profile", current: false },
+    { name: "Ticket", href: "/ticket", current: false },
+    
     // { name: "Projects", href: "#", current: false },
     // { name: "Calendar", href: "#", current: false },
   ];
