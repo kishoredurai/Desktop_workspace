@@ -13,8 +13,14 @@ export const Ticket = () => {
       <div className="w-full">
         <header className="bg-white ">
           <div className="mx-auto py-4 mt-3 px-4 sm:px-6 lg:px-8">
-            <button className="btn btn-red-500 float-right">asds</button>
-
+            <button
+              type="button"
+              onClick={() => navigate("/ticket/new")}
+              className="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-xs px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+            >
+             
+              New Ticket{" "}
+            </button>
             <h1 className="text-xl font-bold tracking-tight text-gray-900">
               Tickets
             </h1>
@@ -84,33 +90,36 @@ export const Ticket = () => {
             </div>
           </div>
 
-          <div className="sm:col-span-18 max-w-96 flex justify-center text-6xl rounded-xl  flex flex-col items-center ">
+          <div className="sm:col-span-18 py-2 max-w-96 flex justify-center text-6xl rounded-xl  flex flex-col items-center">
             <div
-              className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+              className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
+              onClick={()=>navigate("/ticket/details")}
             >
               <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
+              <h2 className="text-xs sm:pt-0 mb-2 sm:float-right font-bold text-gray-400">
+                    #2349493021
+                  </h2>
                 <h2 className="text-lg font-bold text-gray-800 mb-3">
                   Image Not Working
                 </h2>
 
-                <div class="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
+                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
                   <div
-                    class="h-4 bg-yellow-600 rounded-full dark:bg-yellow-500 text-xs font-medium text-blue-100 text-center"
-                    style={{ width: "25%" }}
+                    className="h-4 bg-red-600 rounded-md dark:bg-red-500 text-xs font-bold text-red-100 text-center"
+                    style={{ width: "100%" }}
                   >
-                    UNSOLVED
+                    DECLINED
                   </div>
                 </div>
                 <p className="text-sm pt-2 text-gray-600">
-                Ubuntu is a free and open source operating system and Linux
+                  Ubuntu is a free and open source operating system and Linux
                   distribution based on Debian. Ubuntu is offered in three
                   official editions: Ubuntu Desktop for personal computers,
                   Ubuntu Server for servers and the cloud, and Ubuntu Core for
                   Internet of things devices
                 </p>
                 <div className="text-sm pt-3 text-gray-600">
-               
                   <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                     #Machine
                   </span>
@@ -118,30 +127,30 @@ export const Ticket = () => {
                     #Installation
                   </span>
                   <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
-                  2016-05-18T16:00:00Z
-                </h2>
+                    2016-05-18T16:00:00Z
+                  </h2>
                 </div>
-
-               
               </div>
             </div>
             <div
-              className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+              className="btn pt-2 mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
-              onClick={() => console.log("sshi")}
+              onClick={()=>navigate("/ticket/details")}
+
             >
               <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
-                  2016-05-18T16:00:00Z
+                <h2 className="text-lg font-bold text-gray-800 mb-3">
+                  Image Not Working
                 </h2>
-                <h2 className="text-lg font-bold text-gray-800">
-                  Ubuntu Machine
-                </h2>
-                <h2 className="text-xs pt-2 mb-1">
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-400 text-white rounded">
-                    Inactive
-                  </span>
-                </h2>
+
+                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div
+                    className="h-4 bg-yellow-600 rounded-full dark:bg-yellow-500 text-xs font-bold text-blue-100 text-center"
+                    style={{ width: "50%" }}
+                  >
+                    UNSOLVED
+                  </div>
+                </div>
                 <p className="text-sm pt-2 text-gray-600">
                   Ubuntu is a free and open source operating system and Linux
                   distribution based on Debian. Ubuntu is offered in three
@@ -149,84 +158,55 @@ export const Ticket = () => {
                   Ubuntu Server for servers and the cloud, and Ubuntu Core for
                   Internet of things devices
                 </p>
-
-                <div className="mt-4 grid  grid-cols-12 ">
-                  <div className="col-span-6  md:col-span-2">
-                    <div className="text-sm">
-                      Operating System : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
-                        Ubuntu
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-6 md:col-span-2 ">
-                    <div className="text-sm">
-                      User Name : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500 text-white rounded">
-                        Cloud
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
-                    <div className="text-sm">
-                      Password : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        Kishore@33123
-                      </span>
-                    </div>
-                  </div>
+                <div className="text-sm pt-3 text-gray-600">
+                  <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Installation
+                  </span>
+                  <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
+                    2016-05-18T16:00:00Z
+                  </h2>
                 </div>
               </div>
             </div>
             <div
               className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
-              onClick={() => console.log("sshi")}
+              onClick={()=>navigate("/ticket/details")}
+
             >
               <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
-                  2016-05-18T16:00:00Z
+                <h2 className="text-lg font-bold text-gray-800 mb-3">
+                  Image Not Working
                 </h2>
-                <h2 className="text-lg font-bold text-gray-800">
-                  Linux Training Batch
-                </h2>
-                <h2 className="text-xs pt-1 mb-1">
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded">
-                    Terminated
-                  </span>
-                </h2>
+
+                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div
+                    className="h-4 bg-green-600 rounded-full dark:bg-green-500 text-xs font-bold text-blue-100 text-center"
+                    style={{ width: "100%" }}
+                  >
+                    SOLVED
+                  </div>
+                </div>
                 <p className="text-sm pt-2 text-gray-600">
                   Ubuntu is a free and open source operating system and Linux
                   distribution based on Debian. Ubuntu is offered in three
                   official editions: Ubuntu Desktop for personal computers,
-                  Ubuntu Server for
+                  Ubuntu Server for servers and the cloud, and Ubuntu Core for
+                  Internet of things devices
                 </p>
-
-                <div className="mt-4 grid  grid-cols-12 ">
-                  <div className="col-span-6  md:col-span-2">
-                    <div className="text-sm">
-                      Operating System : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellows-600 text-white rounded">
-                        Ubuntu
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-6 md:col-span-2 ">
-                    <div className="text-sm">
-                      User Name : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
-                        Cloud
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
-                    <div className="text-sm">
-                      Password : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        Kishore@33123
-                      </span>
-                    </div>
-                  </div>
+                <div className="text-sm pt-3 text-gray-600">
+                  <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Installation
+                  </span>
+                  <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
+                    2016-05-18T16:00:00Z
+                  </h2>
                 </div>
               </div>
             </div>

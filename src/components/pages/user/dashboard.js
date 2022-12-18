@@ -13,7 +13,6 @@ export const Dashboard = () => {
       <div className="w-full">
         <header className="bg-white ">
           <div className="mx-auto py-4 mt-3 px-4 sm:px-6 lg:px-8">
-            <button className="btn btn-red-500 float-right">asds</button>
         
             <h1 className="text-xl font-bold tracking-tight text-gray-900">
               Dashboard
@@ -89,9 +88,9 @@ export const Dashboard = () => {
           </div>
 
 
-          <div className="sm:col-span-18 max-w-96 flex justify-center text-6xl rounded-xl  flex flex-col items-center ">
+          <div className="sm:col-span-18 py-2 max-w-96 flex justify-center text-6xl rounded-xl  flex flex-col items-center ">
             <div
-              className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+              className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
               onClick={() => setShowModal(true)}
             >
@@ -115,7 +114,7 @@ export const Dashboard = () => {
                 <div className="mt-4 grid  grid-cols-12 ">
                   <div className="col-span-6  md:col-span-2">
                     <div className="text-sm">
-                      Operating System : &nbsp;
+                      System : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
                         Ubuntu
                       </span>
@@ -123,17 +122,17 @@ export const Dashboard = () => {
                   </div>
                   <div className="col-span-6 md:col-span-2 ">
                     <div className="text-sm">
-                      User Name : &nbsp;
+                      Total Days : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
-                        Cloud
+                        55
                       </span>
                     </div>
                   </div>
                   <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
                     <div className="text-sm">
-                      Password : &nbsp;
+                    Created Date : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        Kishore@33123
+                      2022-05-15
                       </span>
                     </div>
                   </div>
@@ -168,7 +167,7 @@ export const Dashboard = () => {
                 <div className="mt-4 grid  grid-cols-12 ">
                   <div className="col-span-6  md:col-span-2">
                     <div className="text-sm">
-                      Operating System : &nbsp;
+                      System : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
                         Ubuntu
                       </span>
@@ -176,17 +175,17 @@ export const Dashboard = () => {
                   </div>
                   <div className="col-span-6 md:col-span-2 ">
                     <div className="text-sm">
-                      User Name : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500 text-white rounded">
-                        Cloud
+                      Total Days : &nbsp;
+                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
+                        55
                       </span>
                     </div>
                   </div>
                   <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
                     <div className="text-sm">
-                      Password : &nbsp;
+                    Created Date : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        Kishore@33123
+                      2022-05-15
                       </span>
                     </div>
                   </div>
@@ -194,7 +193,7 @@ export const Dashboard = () => {
               </div>
             </div>
             <div
-              className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+              className="btn pt-4 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
               onClick={() => console.log("sshi")}
             >
@@ -220,25 +219,25 @@ export const Dashboard = () => {
                 <div className="mt-4 grid  grid-cols-12 ">
                   <div className="col-span-6  md:col-span-2">
                     <div className="text-sm">
-                      Operating System : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellows-600 text-white rounded">
+                      System : &nbsp;
+                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
                         Ubuntu
                       </span>
                     </div>
                   </div>
                   <div className="col-span-6 md:col-span-2 ">
                     <div className="text-sm">
-                      User Name : &nbsp;
+                      Total Days : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
-                        Cloud
+                        55
                       </span>
                     </div>
                   </div>
                   <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
                     <div className="text-sm">
-                      Password : &nbsp;
+                    Created Date : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        Kishore@33123
+                      2022-05-15
                       </span>
                     </div>
                   </div>
@@ -312,6 +311,13 @@ export const Dashboard = () => {
             </button>
             <div className="px-6 py-6 lg:px-8">
                 <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Platform Login Credentials</h3>
+                <div class="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+  <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">Info</span>
+  <div>
+    <span class="font-medium">Info alert!</span> Copy the user Credentials to login to system
+  </div>
+</div>
                 <form className="space-y-6" action="#">
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Username :</label>

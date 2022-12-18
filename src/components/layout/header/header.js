@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { navigation } from '../../constants/credentails'
 import { useNavigate } from "react-router-dom";
+import logo from "../../images/logo.png"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -62,19 +63,19 @@ const Header = () => {
                   <div className="flex flex-shrink-0 items-center">
                     <img
                       className="block h-8 w-auto lg:hidden"
-                      src="logo.png"
+                      src={logo}
                       alt="Your Company"
                     />
                     <img
                       className="hidden h-8 w-auto lg:block"
-                      src="logo.png"
+                      src={logo}
                       alt="Your Company"
                     />
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <button
                           key={item.name}
                           onClick={()=> navchanger(item.href)}
                           className={classNames(
@@ -86,7 +87,7 @@ const Header = () => {
                           aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
-                        </a>
+                        </button>
                       ))}
                     </div>
                   </div>

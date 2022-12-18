@@ -4,7 +4,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useGoogleOneTapLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { navigation } from "../constants/credentails";
-
+import logo from "../images/logo.png"
 
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -58,7 +58,7 @@ const navigate = useNavigate();
        <section className="containers">
             <div className="forms">
                 <div className="logos">
-                    <img src="logo.png"  className="banner" />
+                    <img src={logo}  className="banner" />
                  </div>
                 <div className="form-content">
                     

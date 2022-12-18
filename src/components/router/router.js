@@ -5,6 +5,9 @@ import { Login } from "../login/Login";
 import { Dashboard } from "../pages/user/dashboard";
 import { Machine_screen } from "../pages/user/machine_screen";
 import { Ticket } from "../pages/user/ticket";
+import { New_feed } from "../pages/user/sub_page/new_feed";
+import { Feed_detail } from "../pages/user/sub_page/feed_detail";
+
 function Router() {
   return (
     <BrowserRouter>
@@ -32,6 +35,14 @@ const routerList = [
   {
     path: "/ticket",
     element: <Ticket />,
+  },
+  {
+    path: "/ticket/new",
+    element: <New_feed />,
+  },
+  {
+    path: "/ticket/details/",
+    element: <Feed_detail />,
   },
   {
     path: "/home",
