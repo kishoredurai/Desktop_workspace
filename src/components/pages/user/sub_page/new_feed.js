@@ -45,7 +45,7 @@ export const New_feed = () => {
                           />
                           <p
                             id="helper-text-explanation"
-                            class="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                            className="mt-2 text-xs text-gray-500 dark:text-gray-400"
                           >
                             Be precise to the issue
                           </p>
@@ -69,7 +69,7 @@ export const New_feed = () => {
                           />
                           <p
                             id="helper-text-explanation"
-                            class="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                            className="mt-2 text-xs text-gray-500 dark:text-gray-400"
                           >
                             Explain briefly about the issue
                           </p>
@@ -82,66 +82,66 @@ export const New_feed = () => {
                           >
                             Category
                           </label>
-                          {/* <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                              <div class="flex items-center pl-3">
+                          {/* <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                              <div className="flex items-center pl-3">
                                 <input
                                   id="vue-checkbox-list"
                                   type="checkbox"
                                   value=""
-                                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                 />
                                 <label
                                   for="vue-checkbox-list"
-                                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                   Vue JS
                                 </label>
                               </div>
                             </li>
-                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                              <div class="flex items-center pl-3">
+                            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                              <div className="flex items-center pl-3">
                                 <input
                                   id="react-checkbox-list"
                                   type="checkbox"
                                   value=""
-                                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                 />
                                 <label
                                   for="react-checkbox-list"
-                                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                   React
                                 </label>
                               </div>
                             </li>
-                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                              <div class="flex items-center pl-3">
+                            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                              <div className="flex items-center pl-3">
                                 <input
                                   id="angular-checkbox-list"
                                   type="checkbox"
                                   value=""
-                                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                 />
                                 <label
                                   for="angular-checkbox-list"
-                                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                   Angular
                                 </label>
                               </div>
                             </li>
-                            <li class="w-full dark:border-gray-600">
-                              <div class="flex items-center pl-3">
+                            <li className="w-full dark:border-gray-600">
+                              <div className="flex items-center pl-3">
                                 <input
                                   id="laravel-checkbox-list"
                                   type="checkbox"
                                   value=""
-                                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                  className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                 />
                                 <label
                                   for="laravel-checkbox-list"
-                                  class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                                  className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
                                 >
                                   Laravel
                                 </label>
@@ -149,45 +149,42 @@ export const New_feed = () => {
                             </li>
                           </ul> */}
 
-                          <div class="flex">
-                            <div class="flex items-center mr-4">
+                          <div className="flex">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-checkbox"
                                 type="checkbox"
                                 value=""
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                               >
                                 Not Working
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-2-checkbox"
                                 type="checkbox"
                                 value=""
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-2-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                               >
                                 Login Issue
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-2-checkbox"
                                 type="checkbox"
                                 value=""
-                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-2-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                               >
                                 Blank Screen
                               </label>
@@ -203,41 +200,37 @@ export const New_feed = () => {
                             File Selector
                           </label>
 
-                          <div class="flex items-center justify-center w-full">
+                          <div className="flex items-center justify-center w-full">
                             <label
-                              for="dropzone-file"
-                              class="flex flex-col items-center justify-center w-full h-54 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                              className="flex flex-col items-center justify-center w-full h-54 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                             >
-                              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                              <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg
                                   aria-hidden="true"
-                                  class="w-10 h-10 mb-3 text-gray-400"
+                                  className="w-10 h-10 mb-3 text-gray-400"
                                   fill="none"
                                   stroke="currentColor"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
                                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                   ></path>
                                 </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                  <span class="font-semibold">
+                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                  <span className="font-semibold">
                                     Click to upload
                                   </span>{" "}
                                   or drag and drop
                                 </p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
                                   SVG, PNG, JPG or GIF (MAX. 800x400px)
                                 </p>
                               </div>
                               <input
                                 id="dropzone-file"
                                 type="file"
-                                class="hidden"
+                                className="hidden"
                               />
                             </label>
                           </div>
@@ -258,31 +251,29 @@ export const New_feed = () => {
                 </h5>
 
                 <fieldset className="pt-3 mr-40 w-full">
-                  <div class="flex items-center mb-4">
+                  <div className="flex items-center mb-4">
                     <input
                       id="default-checkbox"
                       type="checkbox"
                       value=""
-                      class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
-                      for="default-checkbox"
-                      class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                      className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                     >
                       I hereby declare that the above mentioned information is
                       correct to the best of my knowledge .
                     </label>
                   </div>
-                  <div class="flex items-center mb-4">
+                  <div className="flex items-center mb-4">
                     <input
                       id="default-checkbox"
                       type="checkbox"
                       value=""
-                      class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
-                      for="default-checkbox"
-                      class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                      className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                     >
                       I bear the responsibility for the correctness of the above
                       mentioned particulars.
@@ -290,17 +281,17 @@ export const New_feed = () => {
                   </div>
                 </fieldset>
 
-                <div class="flex pt-4 ml-0 space-x-3 justify-center">
+                <div className="flex pt-4 ml-0 space-x-3 justify-center">
                   <button
                     type="button"
-                    class="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                   >
                     Submit
                   </button>
                   <button
                     type="button"
                     onClick={() => navigate("/ticket")}
-                    class="inline-block px-6 w-full py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    className="inline-block px-6 w-full py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                   >
                     Cancel
                   </button>

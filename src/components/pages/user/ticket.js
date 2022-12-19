@@ -18,7 +18,6 @@ export const Ticket = () => {
               onClick={() => navigate("/ticket/new")}
               className="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-xs px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
             >
-             
               New Ticket{" "}
             </button>
             <h1 className="text-xl font-bold tracking-tight text-gray-900">
@@ -94,12 +93,12 @@ export const Ticket = () => {
             <div
               className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
-              onClick={()=>navigate("/ticket/details")}
+              onClick={() => navigate("/ticket/details")}
             >
               <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-              <h2 className="text-xs sm:pt-0 mb-2 sm:float-right font-bold text-gray-400">
-                    #2349493021
-                  </h2>
+                <h2 className="text-xs sm:pt-0 mb-2 sm:float-right font-bold text-gray-400">
+                  #2349493021
+                </h2>
                 <h2 className="text-lg font-bold text-gray-800 mb-3">
                   Image Not Working
                 </h2>
@@ -112,13 +111,15 @@ export const Ticket = () => {
                     DECLINED
                   </div>
                 </div>
-                <p className="text-sm pt-2 text-gray-600">
-                  Ubuntu is a free and open source operating system and Linux
-                  distribution based on Debian. Ubuntu is offered in three
-                  official editions: Ubuntu Desktop for personal computers,
-                  Ubuntu Server for servers and the cloud, and Ubuntu Core for
-                  Internet of things devices
-                </p>
+                <div className="flex items-center">
+                  <img
+                    className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                    src="https://lh3.googleusercontent.com/a/AEdFTp4444J2XdbG9uMin98OFO93KzOBMHsc7axNj6M7Ig=s96-c"
+                    alt="Bordered avatar"
+                  />
+                  <p className="text-sm px-2 font-medium text-gray-600"> kishore D</p>
+                </div>
+
                 <div className="text-sm pt-3 text-gray-600">
                   <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                     #Machine
@@ -135,8 +136,7 @@ export const Ticket = () => {
             <div
               className="btn pt-2 mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
-              onClick={()=>navigate("/ticket/details")}
-
+              onClick={() => navigate("/ticket/details")}
             >
               <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
                 <h2 className="text-lg font-bold text-gray-800 mb-3">
@@ -174,8 +174,7 @@ export const Ticket = () => {
             <div
               className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
               aria-hidden="true"
-              onClick={()=>navigate("/ticket/details")}
-
+              onClick={() => navigate("/ticket/details")}
             >
               <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
                 <h2 className="text-lg font-bold text-gray-800 mb-3">

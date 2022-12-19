@@ -8,4 +8,14 @@ const navigation = [
     // { name: "Projects", href: "#", current: false },
     // { name: "Calendar", href: "#", current: false },
   ];
-export { navigation }
+
+  const admin_navigation = [
+    { name: "Dashboard", href: "/admin/dashboard", current: false },
+    { name: "Ticket", href: "/ticket", current: false },
+    { name: "Machine", href: "/Machine", current: false },
+    { name: "Users", href: "/users", current: false },
+
+    // { name: "Projects", href: "#", current: false },
+    // { name: "Calendar", href: "#", current: false },
+  ];
+export { navigation,admin_navigation }

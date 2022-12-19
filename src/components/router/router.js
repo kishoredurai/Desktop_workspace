@@ -8,6 +8,12 @@ import { Ticket } from "../pages/user/ticket";
 import { New_feed } from "../pages/user/sub_page/new_feed";
 import { Feed_detail } from "../pages/user/sub_page/feed_detail";
 
+
+
+
+import { Admin_dasboard } from "../pages/admin/admin_dashboard";
+
+
 function Router() {
   return (
     <BrowserRouter>
@@ -48,6 +54,11 @@ const routerList = [
     path: "/home",
     element: <Machine_screen />
   },
+  {
+    path: "/admin/dashboard",
+    element: <Admin_dasboard />
+  },
+  
   {
     path: "*",
     element: <Login />,

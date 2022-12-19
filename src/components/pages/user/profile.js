@@ -32,7 +32,7 @@ const pp=item_value.picture;
                 </p>
               </div> */}
                <form action="#" method="POST">
-                <div className="bg-blue-50 overflow-hidden shadow shadow-2xl  shadow-gray-1200 sm:rounded-md">
+                <div className="border bg-white-900 border-gray-200 overflow-hidden shadow shadow-md  shadow-gray-1200 sm:rounded-md">
                   <div className=" px-4 py-5 sm:p-6 justify-self-center items-center float-center">
                   <img
                               className="rounded-full  border-dashed border-4 border-indigo-600 m-auto"
@@ -48,8 +48,8 @@ const pp=item_value.picture;
             </div>
             <div className="mt-5 md:col-span-2 md:mt-0">
               <form action="/">
-                <div className="overflow-hidden shadow sm:rounded-md">
-                  <div className="bg-gray-200 px-4 py-5 sm:p-6">
+                <div className="border border-gray-200 overflow-hidden shadow shadow-md sm:rounded-md">
+                  <div className="px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 sm:col-span-3">
                         <label
@@ -182,12 +182,12 @@ const pp=item_value.picture;
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                  <div className="px-4 py-3 text-right sm:px-6">
                     <button
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                      Save
+                      Update
                     </button>
                   </div>
                 </div>
