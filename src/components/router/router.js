@@ -12,7 +12,7 @@ import { Feed_detail } from "../pages/user/sub_page/feed_detail";
 
 
 import { Admin_dasboard } from "../pages/admin/admin_dashboard";
-
+import { Machine } from "../pages/admin/machine";
 
 function Router() {
   return (
@@ -58,7 +58,10 @@ const routerList = [
     path: "/admin/dashboard",
     element: <Admin_dasboard />
   },
-  
+  {
+    path: "/admin/machine",
+    element: <Machine />
+  },
   {
     path: "*",
     element: <Login />,

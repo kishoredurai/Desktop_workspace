@@ -155,7 +155,7 @@ export const Admin_dasboard = () => {
         <header className="bg-white">
           <div className="mx-auto py-4 mt-3  px-8 ">
             <h1 className="text-base px-4 font-bold tracking-tight text-gray-900">
-              Dashboard
+              Machine Status
             </h1>
           </div>
         </header>
