@@ -26,10 +26,10 @@ export const Ticket = () => {
           </div>
         </header>
 
-        <div className="grid px-4 grid-flow-row sm:grid-flow-col gap-12">
-          <div className="flex text-6xl  rounded-xl max-w-sm ">
-            <div className="justify-center pt-2 ">
-              <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white max-w-sm ">
+        <div className="grid px-4 sm:px-8 grid-flow-row sm:grid-flow-col gap-12">
+          <div className="flex text-6xl  rounded-xl">
+            <div className="justify-center pt-2 w-full" >
+              <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white ">
                 <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
                   Filters :
                   <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600  text-white rounded-full">

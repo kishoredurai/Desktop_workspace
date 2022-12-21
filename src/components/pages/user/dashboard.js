@@ -21,10 +21,10 @@ export const Dashboard = () => {
           </div>
         </header>
 
-        <div className="grid px-4 grid-flow-row sm:grid-flow-col gap-12">
-          <div className="flex text-6xl  rounded-xl max-w-sm ">
-            <div className="justify-center pt-2 ">
-              <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white max-w-sm ">
+        <div className="grid px-6 sm:px-8 grid-flow-row sm:grid-flow-col gap-12">
+          <div className="flex text-6xl rounded-xl">
+            <div className="justify-center pt-2 w-full">
+              <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white ">
                 <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
                   Filter Options : &nbsp;
                   <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600  text-white rounded-full">
@@ -329,7 +329,7 @@ export const Dashboard = () => {
                     </div>
                     
                     {/* <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button> */}
-                    <div className="bg-gray-50  sm:flex sm:flex-row-reverse ">
+                    <div className="sm:flex sm:flex-row-reverse ">
           <button type="button" className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => navigate("/home")} >Proceed</button>
           <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)} >Cancel</button>
         </div>

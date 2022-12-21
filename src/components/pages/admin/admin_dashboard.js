@@ -48,7 +48,7 @@ export const Admin_dasboard = () => {
             <div class="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
               <div class="p-3 mr-4 bg-blue-500 text-white rounded-full">
                 <svg
-                  class="w-6 h-6"
+                  class="w-12 h-12"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -62,10 +62,10 @@ export const Admin_dasboard = () => {
                   ></path>
                 </svg>
               </div>
-              <div>
-                <p class="mb-2 text-sm font-medium text-gray-900">Projects</p>
-                <p class="text-sm font-normal text-gray-800">
-                  Unlimted projects for you
+              <div className="text-center float-center items-center">
+                <p class="mb-2 text-5xl font-medium text-gray-900 items-center">58</p>
+                <p class="flex px-5 text-sm font-normal text-gray-800">
+                  Running Containers
                 </p>
               </div>
             </div>
