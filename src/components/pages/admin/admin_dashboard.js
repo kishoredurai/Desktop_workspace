@@ -193,24 +193,22 @@ export const Admin_dasboard = () => {
           </div>
         </section>
 
+        {/* Table start heree */}
+
+      <div className='px-3 grid grid-cols-1 grid-rows-2 gap-3 sm:grid-cols-2 md:grid-cols-2'>
+        
+        <div className="col-span-1">
         <header className="bg-white">
-          <div className="mx-auto py-4 mt-3  px-8 ">
+          <div className="mx-auto py-4 ">
             <h1 className="text-base px-4 font-bold tracking-tight text-gray-900">
-              Machine Status
+              New Tickets
             </h1>
           </div>
         </header>
-
-        {/* code start heree */}
-
-      <div className='p-3   grid grid-cols-1 grid-rows-2 gap-3 sm:grid-cols-2 md:grid-cols-2'>
-        <div className="col-span-1 border-2 border-gray-3000 rounded-lg shadow-xl ">
+        <div className='border-2 border-gray-3000 rounded-lg shadow-xl '>
         <div class="p-2 overflow-x-auto relative shadow-md sm:rounded-lg">
-                <div class="p-2 flex justify-between items-center pb-4 bg-white dark:bg-gray-900">
-                  <div>
-                    <h3>asdasd</h3>
-                   
-                  </div>
+                <div class="p-2 float-right flex justify-between items-center pb-4 bg-white dark:bg-gray-900">
+                 
                   <label for="table-search" class="sr-only">
                     Search
                   </label>
@@ -254,23 +252,26 @@ export const Admin_dasboard = () => {
                         </div>
                       </th>
                       <th scope="col" class="py-3 px-6 border-r">
-                        Name
+                        User
                       </th>
                       <th scope="col" class="py-3 px-6 border-r">
-                        Position
+                        Title
                       </th>
                       <th scope="col" class="py-3 px-6 border-r">
-                        Status
+                        Category
+                      </th>
+                      <th scope="col" class="py-3 px-6 border-r">
+                        Ticket Status
                       </th>
                       <th scope="col" class="py-3 px-6 border-r">
                         Action
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className='border-b'>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="p-4 w-4">
-                        <div class="flex items-center">
+                      <td class="p-4 w-4 border-r">
+                        <div class="flex items-center ">
                           <input
                             id="checkbox-table-search-1"
                             type="checkbox"
@@ -283,7 +284,61 @@ export const Admin_dasboard = () => {
                       </td>
                       <th
                         scope="row"
-                        class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
+                        class="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        <img
+                          class="w-10 h-10 rounded-full"
+                          src="https://lh3.googleusercontent.com/a/AEdFTp4444J2XdbG9uMin98OFO93KzOBMHsc7axNj6M7Ig=s96-c"
+                          alt="Jese image"
+                        />
+                        <div class="pl-3">
+                          <div class="text-base font-semibold">Neil Sims</div>
+                          <div class="font-normal text-sm truncate text-gray-500">
+                            kishore.ct19@bitsathy.ac.in
+                          </div>
+                        </div>
+                      </th>
+                      <td class="py-4 px-6 border-r">Image Not Working</td>
+                      <td class="py-4 px-6 border-r">
+                        <div className='flex gap-2'>
+                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                        </div>
+                      </td>
+
+                      <td class="py-4 px-6 border-r">
+                        <div class="flex items-center">
+                          <div class="h-2.5 w-2.5 rounded-full bg-red-600 mr-2"></div>{' '}
+                          Declined
+                        </div>
+                      </td>
+                      <td class="py-4 px-6">
+                      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+  <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">Icon description</span>
+</button>
+                      </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td class="p-4 w-4 border-r">
+                        <div class="flex items-center ">
+                          <input
+                            id="checkbox-table-search-1"
+                            type="checkbox"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          />
+                          <label for="checkbox-table-search-1" class="sr-only">
+                            checkbox
+                          </label>
+                        </div>
+                      </td>
+                      <th
+                        scope="row"
+                        class="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         <img
                           class="w-10 h-10 rounded-full"
@@ -297,38 +352,46 @@ export const Admin_dasboard = () => {
                           </div>
                         </div>
                       </th>
-                      <td class="py-4 px-6">React Developer</td>
-                      <td class="py-4 px-6">
+                      <td class="py-4 px-6 border-r">Image Not Working</td>
+                      <td class="py-4 px-6 border-r">
+                        <div className='flex gap-2'>
+                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                        </div>
+                      </td>
+
+                      <td class="py-4 px-6 border-r">
                         <div class="flex items-center">
                           <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
                           Online
                         </div>
                       </td>
                       <td class="py-4 px-6">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit user
-                        </a>
+                      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+  <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">Icon description</span>
+</button>
                       </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="p-4 w-4">
-                        <div class="flex items-center">
+                    </tr> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td class="p-4 w-4 border-r">
+                        <div class="flex items-center ">
                           <input
-                            id="checkbox-table-search-2"
+                            id="checkbox-table-search-1"
                             type="checkbox"
                             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           />
-                          <label for="checkbox-table-search-2" class="sr-only">
+                          <label for="checkbox-table-search-1" class="sr-only">
                             checkbox
                           </label>
                         </div>
                       </td>
                       <th
                         scope="row"
-                        class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         <img
                           class="w-10 h-10 rounded-full"
@@ -336,46 +399,53 @@ export const Admin_dasboard = () => {
                           alt="Jese image"
                         />
                         <div class="pl-3">
-                          <div class="text-base font-semibold">
-                            Bonnie Green
-                          </div>
+                          <div class="text-base font-semibold">Neil Sims</div>
                           <div class="font-normal text-gray-500">
-                            bonnie@flowbite.com
+                            neil.sims@flowbite.com
                           </div>
                         </div>
                       </th>
-                      <td class="py-4 px-6">Designer</td>
-                      <td class="py-4 px-6">
+                      <td class="py-4 px-6 border-r">Image Not Working</td>
+                      <td class="py-4 px-6 border-r">
+                        <div className='flex gap-2'>
+                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                        </div>
+                      </td>
+
+                      <td class="py-4 px-6 border-r">
                         <div class="flex items-center">
-                          <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
-                          Online
+                          <div class="h-2.5 w-2.5 rounded-full bg-yellow-400 mr-2"></div>{' '}
+                          Initiated
                         </div>
                       </td>
                       <td class="py-4 px-6">
-                        <a
-                          href="#"
+                        <button
                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         >
                           Edit user
-                        </a>
+                        </button>
                       </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="p-4 w-4">
-                        <div class="flex items-center">
+                    </tr> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td class="p-4 w-4 border-r">
+                        <div class="flex items-center ">
                           <input
-                            id="checkbox-table-search-2"
+                            id="checkbox-table-search-1"
                             type="checkbox"
                             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           />
-                          <label for="checkbox-table-search-2" class="sr-only">
+                          <label for="checkbox-table-search-1" class="sr-only">
                             checkbox
                           </label>
                         </div>
                       </td>
                       <th
                         scope="row"
-                        class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         <img
                           class="w-10 h-10 rounded-full"
@@ -383,44 +453,53 @@ export const Admin_dasboard = () => {
                           alt="Jese image"
                         />
                         <div class="pl-3">
-                          <div class="text-base font-semibold">Jese Leos</div>
+                          <div class="text-base font-semibold">Neil Sims</div>
                           <div class="font-normal text-gray-500">
-                            jese@flowbite.com
+                            neil.sims@flowbite.com
                           </div>
                         </div>
                       </th>
-                      <td class="py-4 px-6">Vue JS Developer</td>
-                      <td class="py-4 px-6">
+                      <td class="py-4 px-6 border-r">Image Not Working</td>
+                      <td class="py-4 px-6 border-r">
+                        <div className='flex gap-2'>
+                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                        </div>
+                      </td>
+
+                      <td class="py-4 px-6 border-r">
                         <div class="flex items-center">
                           <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
                           Online
                         </div>
                       </td>
                       <td class="py-4 px-6">
-                        <a
-                          href="#"
+                        <button
                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         >
                           Edit user
-                        </a>
+                        </button>
                       </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="p-4 w-4">
-                        <div class="flex items-center">
+                    </tr> <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td class="p-4 w-4 border-r">
+                        <div class="flex items-center ">
                           <input
-                            id="checkbox-table-search-2"
+                            id="checkbox-table-search-1"
                             type="checkbox"
                             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                           />
-                          <label for="checkbox-table-search-2" class="sr-only">
+                          <label for="checkbox-table-search-1" class="sr-only">
                             checkbox
                           </label>
                         </div>
                       </td>
                       <th
                         scope="row"
-                        class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        class="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                       >
                         <img
                           class="w-10 h-10 rounded-full"
@@ -428,183 +507,56 @@ export const Admin_dasboard = () => {
                           alt="Jese image"
                         />
                         <div class="pl-3">
-                          <div class="text-base font-semibold">Thomas Lean</div>
+                          <div class="text-base font-semibold">Neil Sims</div>
                           <div class="font-normal text-gray-500">
-                            thomes@flowbite.com
+                            neil.sims@flowbite.com
                           </div>
                         </div>
                       </th>
-                      <td class="py-4 px-6">UI/UX Engineer</td>
-                      <td class="py-4 px-6">
+                      <td class="py-4 px-6 border-r">Image Not Working</td>
+                      <td class="py-4 px-6 border-r">
+                        <div className='flex gap-2'>
+                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #Machine
+                  </span>
+                        </div>
+                      </td>
+
+                      <td class="py-4 px-6 border-r">
                         <div class="flex items-center">
                           <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
                           Online
                         </div>
                       </td>
                       <td class="py-4 px-6">
-                        <a
-                          href="#"
+                        <button
                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         >
                           Edit user
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="p-4 w-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-search-3"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-3" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        <img
-                          class="w-10 h-10 rounded-full"
-                          src="https://lh3.googleusercontent.com/a/AEdFTp4444J2XdbG9uMin98OFO93KzOBMHsc7axNj6M7Ig=s96-c"
-                          alt="Jese image"
-                        />
-                        <div class="pl-3">
-                          <div class="text-base font-semibold">
-                            Leslie Livingston
-                          </div>
-                          <div class="font-normal text-gray-500">
-                            leslie@flowbite.com
-                          </div>
-                        </div>
-                      </th>
-                      <td class="py-4 px-6">SEO Specialist</td>
-                      <td class="py-4 px-6">
-                        <div class="flex items-center">
-                          <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>{' '}
-                          Offline
-                        </div>
-                      </td>
-                      <td class="py-4 px-6">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit user
-                        </a>
+                        </button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <nav class="flex justify-between items-center pt-4" aria-label="Table navigation">
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-        <ul class="inline-flex items-center -space-x-px">
-            <li>
-                <a href="#" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Previous</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-            </li>
-            <li>
-                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-            </li>
-            <li>
-                <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-            </li>
-            <li>
-                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-            </li>
-            <li>
-                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-            </li>
-            <li>
-                <a href="#" class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Next</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
+            
+              </div>
               </div>
         </div>
-        <div className="col-span-1 border-2 border-gray-300 rounded-lg shadow-xl">
-
+        <div className="col-span-1">
+        <header className="bg-white">
+          <div className="mx-auto py-4 ">
+            <h1 className="text-base px-4 font-bold tracking-tight text-gray-900">
+              Machine Status
+            </h1>
+          </div>
+        </header>
+        <div className='border-2 border-gray-3000 rounded-lg shadow-xl '>
         <div class="p-2 overflow-x-auto relative shadow-md sm:rounded-lg">
                 <div class="p-2 flex justify-between items-center pb-4 bg-white dark:bg-gray-900">
-                  <div>
-                    <button
-                      id="dropdownActionButton"
-                      data-dropdown-toggle="dropdownAction"
-                      class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                      type="button"
-                    >
-                      <span class="sr-only">Action button</span>
-                      Action
-                      <svg
-                        class="ml-2 w-3 h-3"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 9l-7 7-7-7"
-                        ></path>
-                      </svg>
-                    </button>
-                    <div
-                      id="dropdownAction"
-                      class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                    >
-                      <ul
-                        class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownActionButton"
-                      >
-                        <li>
-                          <a
-                            href="#"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            Reward
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            Promote
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            Activate account
-                          </a>
-                        </li>
-                      </ul>
-                      <div class="py-1">
-                        <a
-                          href="#"
-                          class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                        >
-                          Delete User
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                 
                   <label for="table-search" class="sr-only">
                     Search
                   </label>
@@ -627,7 +579,7 @@ export const Admin_dasboard = () => {
                     <input
                       type="text"
                       id="table-search-users"
-                      class="block p-2 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="block p-2 pl-10 w-80 sm:w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Search for users"
                     />
                   </div>
@@ -894,7 +846,7 @@ export const Admin_dasboard = () => {
                   </tbody>
                 </table>
               </div>
-
+</div>
 
         </div>
 
