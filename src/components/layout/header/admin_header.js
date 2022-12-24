@@ -1,45 +1,38 @@
-import { Fragment, React, useEffect } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { Fragment, React, useEffect } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 import { admin_navigation } from '../../constants/credentails'
-import { useNavigate } from "react-router-dom";
-import logo from "../../images/logo.png"
+import { useNavigate } from 'react-router-dom'
+import logo from '../../images/logo.png'
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ')
 }
 
-
-
-
 const Admin_header = () => {
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
-
-
-  const navchanger = (link) =>
-  {
-    navigate(link);
+  const navchanger = (link) => {
+    navigate(link)
   }
 
   const signout = () => {
-      sessionStorage.clear();
-      navigate("/login")
-
+    sessionStorage.clear()
+    navigate('/login')
   }
 
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({})
 
   useEffect(() => {
     const profile = () => {
-      var item_value = JSON.parse(sessionStorage.getItem("item_key"));
-      console.log(item_value.picture);
-      setProfile(item_value.picture);
-    };
+      var item_value = JSON.parse(sessionStorage.getItem('item_key'))
+      console.log(item_value.picture)
+      setProfile(item_value.picture)
+    }
 
-    profile();
-  }, []);
+    profile()
+  }, [])
 
   return (
     <>
@@ -77,14 +70,14 @@ const Admin_header = () => {
                       {admin_navigation.map((item) => (
                         <button
                           key={item.name}
-                          onClick={()=> navchanger(item.href)}
+                          onClick={() => navchanger(item.href)}
                           className={classNames(
                             item.current
-                              ? "bg-gray-600 text-white"
-                              : "text-dark-300 hover:bg-gray-700 hover:text-white",
-                            "px-3 py-2 rounded-md text-sm font-medium"
+                              ? 'bg-gray-600 text-white'
+                              : 'text-dark-300 hover:bg-gray-700 hover:text-white',
+                            'px-3 py-2 rounded-md text-sm font-medium',
                           )}
-                          aria-current={item.current ? "page" : undefined}
+                          aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
                         </button>
@@ -128,24 +121,22 @@ const Admin_header = () => {
                             <a
                               href="/profile"
                               className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700',
                               )}
                             >
-      
- Your Profile
+                              Your Profile
                             </a>
                           )}
                         </Menu.Item>
-                       
-                        
+
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              onClick={()=> signout()}
+                              onClick={() => signout()}
                               className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700',
                               )}
                             >
                               Sign out
@@ -168,11 +159,11 @@ const Admin_header = () => {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'block px-3 py-2 rounded-md text-base font-medium',
                     )}
-                    aria-current={item.current ? "page" : undefined}
+                    aria-current={item.current ? 'page' : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
@@ -183,6 +174,6 @@ const Admin_header = () => {
         )}
       </Disclosure>
     </>
-  );
-};
-export default Admin_header;
+  )
+}
+export default Admin_header
