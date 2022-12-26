@@ -12,7 +12,9 @@ import { Feed_detail } from "../pages/user/sub_page/feed_detail";
 
 
 import { Admin_dasboard } from "../pages/admin/admin_dashboard";
-import { Machine } from "../pages/admin/machine";
+import { Container_image } from "../pages/admin/container_image";
+import { Container } from "../pages/admin/container";
+
 
 function Router() {
   return (
@@ -59,8 +61,12 @@ const routerList = [
     element: <Admin_dasboard />
   },
   {
-    path: "/admin/machine",
-    element: <Machine />
+    path: "/admin/image",
+    element: <Container_image />
+  },
+  {
+    path: "/admin/container",
+    element: <Container />
   },
   {
     path: "*",
