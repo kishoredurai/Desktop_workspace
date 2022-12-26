@@ -156,9 +156,9 @@ export const Admin_dasboard = () => {
 
         {/* Table start heree */}
 
-      <div className='px-3 grid grid-cols-1 grid-rows-2 gap-3 sm:grid-cols-2 md:grid-cols-2'>
+      <div className='px-3 grid grid-cols-1 grid-rows-2 gap-3 sm:grid-cols-6 md:grid-cols-5'>
         
-        <div className="col-span-1">
+        <div className="col-span-4">
         <header className="bg-white">
           <div className="mx-auto py-4 ">
             <h1 className="text-base px-4 font-bold tracking-tight text-gray-900">
@@ -506,7 +506,7 @@ export const Admin_dasboard = () => {
               </div>
               </div>
         </div>
-        <div className="col-span-1">
+        <div className="col-span-2 sm:col-span-2 md:col-span-2">
         <header className="bg-white">
           <div className="mx-auto py-4 ">
             <h1 className="text-base px-4 font-bold tracking-tight text-gray-900">
