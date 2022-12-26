@@ -5,12 +5,12 @@ export const Container_table = () => {
 
 
     const [tableData,setTableData]=useState([
-        {container_id:"#356512441211sdf1",user_name:"kishore",batch_name:"1Linux Training Batch - I",image_name:"editing desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:5},
+        {container_id:"#356512441211sdf1",user_name:"kishore",batch_name:"Linux Training Batch - I",image_name:"editing desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:5},
         {container_id:"356512441211sdf1",user_name:"kumar",batch_name:"Linux Training Batch - I",image_name:"kali desktop",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"NO",cpu_limit:4},
-        {container_id:"67567dfg4t5sdfxd4",user_name:"rameshraja",batch_name:"Linux Training Batch - II",image_name:"ubuntu desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"NO",cpu_limit:2},
-        {container_id:"356512441211sdf1",user_name:"suersh",batch_name:"Linux Training Batch - II",image_name:"centos hacking",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"YES",cpu_limit:1},
-        {container_id:"356512441211sdf1",user_name:"varunraja",batch_name:"Linux Training Batch - I",image_name:"kali hacking",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:2},
-        {container_id:"sdfsdf3433w34 ",user_name:"kumaran",batch_name:"Kalilinux training",image_name:"programing desktop",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"YES",cpu_limit:2  },
+        {container_id:"67567dfg4t5sdfxd4",user_name:"rameshraja",batch_name:"Linux Training Batch - II",image_name:"ubuntu desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"NO",cpu_limit:'2'},
+        {container_id:"356512441211sdf1",user_name:"suersh",batch_name:"Linux Training Batch - II",image_name:"centos hacking",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"YES",cpu_limit:'1'},
+        {container_id:"356512441211sdf1",user_name:"varunraja",batch_name:"Linux Training Batch - I",image_name:"kali hacking",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:'2'},
+        {container_id:"sdfsdf3433w34 ",user_name:"kumaran",batch_name:"Kalilinux training",image_name:"programing desktop",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"YES",cpu_limit:'2'  },
 
       ]);
     
@@ -20,15 +20,15 @@ export const Container_table = () => {
         {title:"Batch Name",field:"batch_name",},
         {title:"Container Name",field:"container_name",},
         {title:"Image Name",field:"image_name",},
-        {title:"Container Status",field:"container_status",lookup:{running:"Running",Stopped:"Stopped"},render:(rowData)=>
+        {title:"Container Status",field:"container_status",lookup:{running:"Running",stopped:"Stopped"},render:(rowData)=>
         <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"
-        style={{background:rowData.image_status.localeCompare("active")==0?"Green":"red"}} >
-        {rowData.image_status}
+        style={{background:rowData.container_status.localeCompare("running")==0?"Green":"red"}} >
+        {rowData.container_status}
       </span>
     
     },
         {title:"Cpu Limit",field:"cpu_limit"},
-        {title:"GPU Support",field:"gpu_support"},
+        {title:"GPU Support",field:"gpu_support",lookup:{YES:"YES",NO:"NO"}},
                 
       ]
     

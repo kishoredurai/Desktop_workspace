@@ -156,7 +156,7 @@ export const Admin_dasboard = () => {
 
         {/* Table start heree */}
 
-      <div className='px-3 grid grid-cols-1 grid-rows-2 gap-3 sm:grid-cols-6 md:grid-cols-5'>
+      <div className='px-3 grid grid-cols-1 grid-rows-1 gap-3 sm:grid-cols-6 md:grid-cols-6 pb-6'>
         
         <div className="col-span-4">
         <header className="bg-white">
@@ -506,11 +506,11 @@ export const Admin_dasboard = () => {
               </div>
               </div>
         </div>
-        <div className="col-span-2 sm:col-span-2 md:col-span-2">
+        <div className="col-span-4 sm:col-span-2">
         <header className="bg-white">
           <div className="mx-auto py-4 ">
             <h1 className="text-base px-4 font-bold tracking-tight text-gray-900">
-              Machine Status
+              Batch Details
             </h1>
           </div>
         </header>
@@ -561,20 +561,15 @@ export const Admin_dasboard = () => {
                         </div>
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
-                        Image Name
+                        Batch Name
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
-                        Base Image
+                        Total User
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
-                        Image Tag
+                        Initiated Date
                       </th>
-                      <th scope="col" className="py-3 px-6 border-r">
-                        GPU
-                      </th>
-                      <th scope="col" className="py-3 px-6 border-r">
-                       Image Status
-                      </th>
+                      
                       <th scope="col" className="py-3 px-6 border-r">
                         Action
                       </th>
@@ -598,9 +593,7 @@ export const Admin_dasboard = () => {
                     Kali linux Desktop
                 </th>
                       <td className="py-4 px-6 border-r">ubuntu</td>
-                      <td className="py-4 px-6 border-r">1.01.0</td>
-                      <td className="py-4 px-6 border-r">True</td>
-
+                     
                       <td className="py-4 px-6 border-r">
                         <div className="flex items-center">
                           <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
@@ -608,13 +601,13 @@ export const Admin_dasboard = () => {
                         </div>
                       </td>
                       <td className="py-4 px-6">
-                      <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-</svg>
-
-</button>
-                      </td>
+                        <a
+                          href="#"
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        >
+                          Edit user
+                        </a>
+                      </td> 
                     </tr>
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <td className="p-4 w-4 border-r">
@@ -633,8 +626,7 @@ export const Admin_dasboard = () => {
                     Kali linux Desktop
                 </th>
                       <td className="py-4 px-6 border-r">ubuntu</td>
-                      <td className="py-4 px-6 border-r">1.01.0</td>
-                      <td className="py-4 px-6 border-r">True</td>
+                  
 
                       <td className="py-4 px-6 border-r">
                         <div className="flex items-center">
@@ -668,8 +660,7 @@ export const Admin_dasboard = () => {
                     Kali linux Desktop
                 </th>
                       <td className="py-4 px-6 border-r">ubuntu</td>
-                      <td className="py-4 px-6 border-r">1.01.0</td>
-                      <td className="py-4 px-6 border-r">True</td>
+                    
 
                       <td className="py-4 px-6 border-r">
                         <div className="flex items-center">
@@ -702,15 +693,11 @@ export const Admin_dasboard = () => {
                       <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     Kali linux Desktop
                 </th>
-                      <td className="py-4 px-6 border-r">ubuntu</td>
-                      <td className="py-4 px-6 border-r">1.01.0</td>
-                      <td className="py-4 px-6 border-r">True</td>
+                      <td className="py-4 px-6 border-r float-center">55</td>
+               
 
                       <td className="py-4 px-6 border-r">
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>{' '}
-                          Disabled
-                        </div>
+                        10-05-2002
                       </td>
                       <td className="py-4 px-6">
                         <a

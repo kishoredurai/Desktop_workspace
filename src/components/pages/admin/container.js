@@ -1,6 +1,7 @@
 import React from "react";
 import Admin_header from "../../layout/header/admin_header";
 import { Container_table } from "./sub_component/container_table";
+
 export const Container = () => {
     return(
         <>
@@ -69,7 +70,7 @@ export const Container = () => {
           </header>
   
           <div className="rounded-xl border-1 border-gray-500 shadow-xl">
-            <Container_table />
+          <Container_table />
           </div>
   
   
