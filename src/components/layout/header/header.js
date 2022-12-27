@@ -123,6 +123,10 @@ const Header = () => {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
+                          <div class="font-medium ">Kishore D</div>
+                          <div class="truncate">kishore.ct19@bitsathy.ac.in</div>
+                        </div>
                         <Menu.Item>
                           {({ active }) => (
                             <a

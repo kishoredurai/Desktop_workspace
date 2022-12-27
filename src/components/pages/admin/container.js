@@ -17,7 +17,7 @@ export const Container = () => {
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
                 <button
-                  onClick={()=> navigate("/admin/container/new")}
+                  onClick={()=> navigate("/admin/dashboard")}
                   className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                 >
                   <svg

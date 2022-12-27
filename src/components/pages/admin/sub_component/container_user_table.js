@@ -5,31 +5,95 @@ export const Container_user_table = () => {
 
 
     const [tableData,setTableData]=useState([
-        {container_id:"#356512441211sdf1",user_name:"kishore",batch_name:"Linux Training Batch - I",image_name:"editing desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:5},
-        {container_id:"356512441211sdf1",user_name:"kumar",batch_name:"Linux Training Batch - I",image_name:"kali desktop",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"NO",cpu_limit:4},
-        {container_id:"67567dfg4t5sdfxd4",user_name:"rameshraja",batch_name:"Linux Training Batch - II",image_name:"ubuntu desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"NO",cpu_limit:'2'},
-        {container_id:"356512441211sdf1",user_name:"suersh",batch_name:"Linux Training Batch - II",image_name:"centos hacking",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"YES",cpu_limit:'1'},
-        {container_id:"356512441211sdf1",user_name:"varunraja",batch_name:"Linux Training Batch - I",image_name:"kali hacking",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:'2'},
-        {container_id:"sdfsdf3433w34 ",user_name:"kumaran",batch_name:"Kalilinux training",image_name:"programing desktop",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"YES",cpu_limit:'2'  },
-
-      ]);
+      {
+        user_id: "63aa6f3b05e9b6697c2943d9",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Sawyer",
+        user_email: "sawyergilbert@mitroc.com",
+        user_contact: "+91 9791741613",
+        user_status: "false"
+      },
+      {
+        user_id: "63aa6f3b6d67888a2f83120f",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Lindsay",
+        user_email: "lindsaygilbert@mitroc.com",
+        user_contact: "+91 9791706759",
+        user_status: "true"
+      },
+      {
+        user_id: "63aa6f3b2763d58efe84f1e6",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Mercado",
+        user_email: "mercadogilbert@mitroc.com",
+        user_contact: "+91 9791648137",
+        user_status: "false"
+      },
+      {
+        user_id: "63aa6f3bfa066c530c1f0bc3",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Cheri",
+        user_email: "cherigilbert@mitroc.com",
+        user_contact: "+91 9791698007",
+        user_status: "false"
+      },
+      {
+        user_id: "63aa6f3b48f0a974d96827cb",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Bernadette",
+        user_email: "bernadettegilbert@mitroc.com",
+        user_contact: "+91 9791790967",
+        user_status: "true"
+      },
+      {
+        user_id: "63aa6f3b2dcec59fa267e17b",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Pearlie",
+        user_email: "pearliegilbert@mitroc.com",
+        user_contact: "+91 9791654329",
+        user_status: "true"
+      },
+      {
+        user_id: "63aa6f3b69ae56111c7ec1d8",
+        user_image: "https://www.kaorinusantara.or.id/wp-content/uploads/2019/06/fire-force-F.jpg",
+        user_name: "Madden",
+        user_email: "maddengilbert@mitroc.com",
+        user_contact: "+91 9791639660",
+        user_status: "false"
+      }
+    ]);
     
       const columns=[
-        {title:"Container ID",field:"container_id",},
+        {title:"Profile",field:"user_image",
+        
+        render: rowData => <th
+        scope="row"
+        className="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
+      >
+        <img
+          className="w-10 h-10 rounded-full"
+          src={rowData.user_image}
+          alt="Jese image"
+        />
+        <div className="pl-3">
+          <div className="text-base font-semibold">{rowData.user_name}</div>
+          
+        </div>
+      </th>
+        
+      ,filtering:false},
+        {title:"User ID",field:"user_id",},
         {title:"User Name",field:"user_name",},
-        {title:"Batch Name",field:"batch_name",},
-        {title:"Container Name",field:"container_name",},
-        {title:"Image Name",field:"image_name",},
-        {title:"Container Status",field:"container_status",lookup:{running:"Running",stopped:"Stopped"},render:(rowData)=>
+        {title:"User Email",field:"user_email",},
+        {title:"User Contact",field:"user_contact",},
+        {title:"user Status",field:"user_status",lookup:{true:"Active",false:"blocked"},render:(rowData)=>
         <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"
-        style={{background:rowData.container_status.localeCompare("running")==0?"Green":"red"}} >
-        {rowData.container_status}
+        style={{background:rowData.user_status.localeCompare("true")==0?"Green":"red"}} >
+        {rowData.user_status}
       </span>
     
     },
-        {title:"Cpu Limit",field:"cpu_limit"},
-        {title:"GPU Support",field:"gpu_support",lookup:{YES:"YES",NO:"NO"}},
-                
+      
       ]
     
     
