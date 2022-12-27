@@ -3,8 +3,9 @@ import Admin_header from '../../layout/header/admin_header'
 import { useState } from 'react'
 import MaterialTable from 'material-table'
 import { Image_table } from './sub_component/image_table'
-
+import { useNavigate } from 'react-router-dom'
 export const Container_image = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Admin_header />
@@ -16,8 +17,8 @@ export const Container_image = () => {
         >
           <ol className="inline-flex items-center space-x-1 md:space-x-3">
             <li className="inline-flex items-center">
-              <a
-                href="#"
+              <button
+                onClick={()=> navigate("/admin/dashboard")}
                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
               >
                 <svg
@@ -28,8 +29,8 @@ export const Container_image = () => {
                 >
                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
                 </svg>
-                Home
-              </a>
+                Dashboard
+              </button>
             </li>
             <li>
               <div className="flex items-center">
@@ -45,12 +46,11 @@ export const Container_image = () => {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <a
-                  href="#"
+                <button
                   className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
                 >
                   Container Image
-                </a>
+                </button>
               </div>
             </li>
           </ol>
@@ -60,6 +60,7 @@ export const Container_image = () => {
         <header>
           <button
             type="button"
+            onClick={()=>navigate("/admin/image/new")}
             className="mt-3 float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-bold rounded-lg text-xs px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
           >
             New Image

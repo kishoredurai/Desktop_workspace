@@ -14,7 +14,7 @@ const admin_navigation = [
     { name: "Container", href: "/admin/container", current: false },
     { name: "Images", href: "/admin/image", current: false },
     { name: "Ticket", href: "/ticket", current: false },
-    { name: "Users", href: "/users", current: false },
+    { name: "Users", href: "/admin/container/users", current: false },
 
     // { name: "Projects", href: "#", current: false },
     // { name: "Calendar", href: "#", current: false },
