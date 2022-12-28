@@ -18,7 +18,7 @@ import { Container } from "../pages/admin/container";
 import { Conatiner_user } from "../pages/admin/container_user";
 import { New_image } from "../pages/admin/sub_page/new_image";
 import { New_container } from "../pages/admin/sub_page/new_container";
-
+import { User_profile } from "../pages/admin/user_profile";
 
 
 
@@ -85,6 +85,10 @@ const routerList = [
   {
     path: "/admin/container/users",
     element: <Conatiner_user />
+  },
+  {
+    path: "/admin/user/profile",
+    element: <User_profile />
   },
   {
     path: "*",

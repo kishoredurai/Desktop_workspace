@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import Admin_header from '../../../layout/header/admin_header'
 import { useNavigate } from 'react-router-dom'
+import loading_gif from '../../../images/icons8-rhombus-loasder.gif'
 
 export const New_container = () => {
+  const [showModal, setShowModal] = useState(false)
+
   const [batchstat, setBatchstat] = useState()
   const [userstat, setuserstat] = useState()
 
@@ -339,75 +342,72 @@ export const New_container = () => {
                         </div>
 
                         {userstat === 'individual' ? (
-
-          <>
-
-                        <div className="col-span-6 sm:col-span-3">
-                            <label
-                              htmlFor="first-name"
-                              className="block text-base font-bold text-gray-700"
-                            >
-                              Email ID
-                            </label>
-                            <input
-                              type="text"
-                              name="first-name"
-                              id="first-name"
-                              autoComplete="given-name"
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                            <p
-                              id="helper-text-explanation"
-                              className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                            >
-                              Enter valid email id to login
-                            </p>
-                          </div>
-                          <div className="col-span-6 sm:col-span-3">
-                            <label
-                              htmlFor="first-name"
-                              className="block text-base font-bold text-gray-700"
-                            >
-                              User Full Name
-                            </label>
-                            <input
-                              type="text"
-                              name="first-name"
-                              id="first-name"
-                              autoComplete="given-name"
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                            <p
-                              id="helper-text-explanation"
-                              className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                            >
-                              Eg : ( Kumar S )
-                            </p>
-                          </div>
-                          <div className="col-span-6 sm:col-span-6">
-                            <label
-                              htmlFor="first-name"
-                              className="block text-base font-bold text-gray-700"
-                            >
-                              Login password
-                            </label>
-                            <input
-                              type="text"
-                              name="first-name"
-                              id="first-name"
-                              autoComplete="given-name"
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                            <p
-                              id="helper-text-explanation"
-                              className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                            >
-                              Enter a Strong password
-                            </p>
-                          </div>
-          
-</>
-                        ):null}
+                          <>
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Email ID
+                              </label>
+                              <input
+                                type="text"
+                                name="first-name"
+                                id="first-name"
+                                autoComplete="given-name"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Enter valid email id to login
+                              </p>
+                            </div>
+                            <div className="col-span-6 sm:col-span-3">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                User Full Name
+                              </label>
+                              <input
+                                type="text"
+                                name="first-name"
+                                id="first-name"
+                                autoComplete="given-name"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Eg : ( Kumar S )
+                              </p>
+                            </div>
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Login password
+                              </label>
+                              <input
+                                type="text"
+                                name="first-name"
+                                id="first-name"
+                                autoComplete="given-name"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Enter a Strong password
+                              </p>
+                            </div>
+                          </>
+                        ) : null}
 
                         {userstat === 'group' ? (
                           <div className="col-span-6 sm:col-span-6 ">
@@ -455,6 +455,7 @@ export const New_container = () => {
                           <div className="flex pt-4 ml-0 space-x-3 justify-center">
                             <button
                               type="button"
+                              onClick={() => setShowModal(true)}
                               className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                             >
                               Submit
@@ -476,62 +477,31 @@ export const New_container = () => {
             </div>
           </div>
 
-          {/* <div className="flex flex-col text-6xl rounded-xl float-right">
-              <div className="justify-center mb-10">
-                <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white ">
-                  <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
-                    Declaration
-                  </h5>
-  
-                  <fieldset className="pt-3 mr-40 w-full">
-                    <div className="flex items-center mb-4">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          {showModal ? (
+            <>
+              <div className="fixed inset-0 z-10 overflow-y-auto">
+                <div
+                  className="fixed inset-0 w-full h-full bg-black opacity-40"
+                  onClick={() => setShowModal(false)}
+                ></div>
+                <div className="flex items-center min-h-screen px-4 py-8">
+                  <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div className="justify-self-center items-center float-center">
+                      <img
+                        className="m-auto"
+                        src={loading_gif}
+                        width={200}
+                        alt=""
                       />
-                      <label
-                        className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
-                      >
-                        I hereby declare that the above mentioned information is
-                        correct to the best of my knowledge .
-                      </label>
                     </div>
-                    <div className="flex items-center mb-4">
-                      <input
-                        id="default-checkbox"
-                        type="checkbox"
-                        value=""
-                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label
-                        className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
-                      >
-                        I bear the responsibility for the correctness of the above
-                        mentioned particulars.
-                      </label>
-                    </div>
-                  </fieldset>
-  
-                  <div className="flex pt-4 ml-0 space-x-3 justify-center">
-                    <button
-                      type="button"
-                      className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                    >
-                      Submit
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => navigate("/ticket")}
-                      className="inline-block px-6 w-full py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                    >
-                      Cancel
-                    </button>
+                    <h3 className="mb-4 text-xl text-center  font-medium text-gray-900 dark:text-white">
+                      Creating New Containers . . . !
+                    </h3>
                   </div>
                 </div>
               </div>
-            </div> */}
+            </>
+          ) : null}
         </div>
       </div>
     </>
