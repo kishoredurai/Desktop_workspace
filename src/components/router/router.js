@@ -10,6 +10,11 @@ import { Feed_detail } from "../pages/user/sub_page/feed_detail";
 
 
 
+// test page
+
+import Test from "../pages/test";
+
+
 // admin page componenets
 
 import { Admin_dasboard } from "../pages/admin/admin_dashboard";
@@ -89,6 +94,10 @@ const routerList = [
   {
     path: "/admin/user/profile",
     element: <User_profile />
+  },
+  {
+    path: "/test",
+    element: <Test />
   },
   {
     path: "*",
