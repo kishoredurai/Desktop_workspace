@@ -7,15 +7,19 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    working-directory: ./frontend 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.2
       - name: Install Dependencies
         run: npm install --force 
+        working-directory: ${{env.working.directory}}
+
       - name: Build
         env:
-          CI: false        
+          CI: false       
         run: npm run build
+        working-directory: ${{env.working.directory}}
       - name: Archive Production Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -25,6 +29,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    working-directory: ./frontend 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.2
