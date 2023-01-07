@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+
+defaults:
+  run:
+    working-directory: ./frontend
 jobs:
   build:
     name: Build
