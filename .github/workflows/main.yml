@@ -24,11 +24,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: build
+          path: ./frontend/build
   deploy:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./frontend/
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.2
@@ -43,3 +45,4 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          working-directory: ./frontend/
