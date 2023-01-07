@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: ./frontend/build
+          path: build
   deploy:
     name: Deploy
     needs: build
@@ -44,7 +44,7 @@ jobs:
         with:
           args: deploy --only hosting
           path: ./frontend/build
-          working-directory: ./frontend/
+          working-directory: ./frontend/build
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           working-directory: ./frontend/
