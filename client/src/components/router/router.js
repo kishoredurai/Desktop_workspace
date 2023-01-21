@@ -24,7 +24,7 @@ import { Conatiner_user } from "../pages/admin/container_user";
 import { New_image } from "../pages/admin/sub_page/new_image";
 import { New_container } from "../pages/admin/sub_page/new_container";
 import { User_profile } from "../pages/admin/user_profile";
-
+import { AdminUser } from "../pages/admin/sub_page/admin_user";
 
 
 function Router() {
@@ -48,7 +48,7 @@ const routerList = [
     element: <Login />,
   },
   {
-    path: "/signup",
+    path: "/user/activation",
     element: <Signup />,
   },
   {
@@ -98,6 +98,10 @@ const routerList = [
   {
     path: "/admin/user/profile",
     element: <User_profile />
+  },
+  {
+    path: "/admin/user/",
+    element: <AdminUser />
   },
   {
     path: "/test",

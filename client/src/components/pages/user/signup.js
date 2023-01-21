@@ -1,14 +1,14 @@
 import { React, useState } from "react";
 
 import Header from "../../layout/header/header";
-
+import ActivationHeader from "../../layout/header/activation_header";
 export const Signup = () => {
   const [profile,setProfile]=useState({});
-  var item_value = JSON.parse(sessionStorage.getItem("item_key"));
+  var item_value = JSON.parse(sessionStorage.getItem("admin_key"));
 const pp=item_value.picture;
   return (
     <>
-    <Header />
+    <ActivationHeader />
       
       <div className="">
       <header className="bg-white ">
@@ -46,7 +46,7 @@ const pp=item_value.picture;
                 </div>
               </form>
             </div>
-            <div className="mt-5 md:col-span-2 md:mt-0">
+            <div className="mt-5 md:col-span-2 md:mt-0 pb-5">
               <form action="/">
                 <div className="border border-gray-200 overflow-hidden shadow shadow-md sm:rounded-md">
                   <div className="px-4 py-5 sm:p-6">
@@ -99,7 +99,7 @@ const pp=item_value.picture;
                           name="region"
                           id="region"
                           autoComplete="address-level1"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
               <div className="float-right ">
