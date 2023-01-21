@@ -34,8 +34,8 @@ const Header = () => {
   useEffect(() => {
     const profile = () => {
       var item_value = JSON.parse(sessionStorage.getItem("item_key"));
-      console.log(item_value.picture);
-      setProfile(item_value.picture);
+      // console.log(item_value.picture);
+      setProfile(item_value);
     };
 
     profile();
@@ -108,7 +108,7 @@ const Header = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full "
-                          src={profile}
+                          src={profile.picture}
                           alt=""
                         />
                       </Menu.Button>
@@ -124,8 +124,8 @@ const Header = () => {
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                          <div class="font-medium ">Kishore D</div>
-                          <div class="truncate">kishore.ct19@bitsathy.ac.in</div>
+                          <div class="font-medium ">{profile.name}</div>
+                          <div class="truncate">{profile.email}</div>
                         </div>
                         <Menu.Item>
                           {({ active }) => (

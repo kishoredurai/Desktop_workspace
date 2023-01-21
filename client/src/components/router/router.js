@@ -7,7 +7,7 @@ import { Machine_screen } from "../pages/user/machine_screen";
 import { Ticket } from "../pages/user/ticket";
 import { New_feed } from "../pages/user/sub_page/new_feed";
 import { Feed_detail } from "../pages/user/sub_page/feed_detail";
-
+import { Signup } from "../pages/user/signup";
 
 
 // test page
@@ -46,6 +46,10 @@ const routerList = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
     path: "/dashboard",

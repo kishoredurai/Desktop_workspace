@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useGoogleOneTapLogin } from "@react-oauth/google";
@@ -13,10 +13,31 @@ export const Login = () => {
 
 const navigate = useNavigate();
 
+// tokendata
+const userprofile = {
+  userid: '',
+  email: '',
+  name: '',
+  picture: '',
+  acc_status: '' ,
+  acc_type:'',
+};
+
+const [username,setUsername] = useState('');
+const [password,setPassword] = useState('');
+
   
+// login form 
+  function submitlogin(event){
+      event.preventDefault();
+      userprofile.userid='test';
+      console.log("login:"+userprofile.userid+" "+password);
+  }
+
+
   const login = useGoogleLogin({
     onSuccess: async (response) => {
-      console.log(response);
+      // console.log(response);
       try {
         const data = await axios.get(
           "https://www.googleapis.com/oauth2/v3/userinfo",
@@ -26,8 +47,16 @@ const navigate = useNavigate();
             },
           }
         );
-        console.log(data.data);
-        setdata(data.data)
+        // console.log(data.data);
+        userprofile.userid=data.data.sub;
+        userprofile.email=data.data.email;
+        userprofile.name=data.data.name;
+        userprofile.picture=data.data.picture;
+        userprofile.acc_status=data.data.email_verified;
+        userprofile.acc_type='user';
+
+
+        setdata(userprofile)
     
       } catch (error) {
         console.log(error);
@@ -35,23 +64,49 @@ const navigate = useNavigate();
     },
   });
 
-  function setdata(request)
-  {
 
-    sessionStorage.setItem("item_key", JSON.stringify(request));
-        navigate("/dashboard")
-  }
   useGoogleOneTapLogin({
     onSuccess: (credentialResponse) => {
-      console.log(credentialResponse);
+      // console.log(credentialResponse);
       var decoded = jwt_decode(credentialResponse.credential);
       console.log(decoded);
-      setdata(decoded)
+
+
+
+      userprofile.userid=decoded.sub;
+      userprofile.email=decoded.email;
+      userprofile.name=decoded.name;
+      userprofile.picture=decoded.picture;
+      userprofile.acc_status=decoded.email_verified;
+      userprofile.acc_type='user';
+
+
+
+      setdata(userprofile)
     },
     onError: () => {
       console.log("Login Failed");
     },
   });
+
+
+
+  function setdata(request)
+  {
+
+    if(request.acc_type=='user')
+    {
+
+      sessionStorage.setItem("item_key", JSON.stringify(request));
+      navigate("/dashboard")
+    }
+    else
+    {
+      sessionStorage.setItem("admin_key", JSON.stringify(request));
+      navigate("/admin/dashboard")
+    }
+  }
+
 
   return (
     <>
@@ -63,14 +118,20 @@ const navigate = useNavigate();
                 <div className="form-content">
                     
                     <header className="headers">Login</header>
-                    <form className="loginform" action="#">
+                    <form className="loginform" onSubmit={submitlogin} >
                         <div className="input-fields">
-                            <input type="text" required /> 
+                            <input type="text" name="username"
+                            onChange={(e) =>  setUsername(e.target.value)}
+
+required /> 
                             <label>Enter Username</label>
                           </div>
                           <br></br>
                           <div className="input-fields">
-                            <input type="password"  className="password" required /> 
+                            <input type="password"  className="password"
+                                                        onChange={(e) =>  setPassword(e.target.value)}
+
+                            required /> 
                             <label>Enter password</label>
 
                           </div>
@@ -80,7 +141,7 @@ const navigate = useNavigate();
                       
 
                         <div className="field button-field">
-                            <button>Login</button>
+                            <button type="submit">Login</button>
                         </div>
                     </form>
 

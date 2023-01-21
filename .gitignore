@@ -8,6 +8,8 @@
 # testing
 /client//coverage
 
+/tmp-data/
+
 # production
 /client//build
 

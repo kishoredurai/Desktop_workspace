@@ -19,7 +19,7 @@ export const Dashboard = () => {
           </div>
         </header>
 
-        <div className="grid px-6 sm:px-8 grid-flow-row sm:grid-flow-col gap-12">
+        <div className="grid px-4 sm:px-8 grid-flow-row sm:grid-flow-col gap-12">
           <div className="flex text-6xl rounded-xl">
             <div className="justify-center pt-2 w-full">
               <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white ">
@@ -105,6 +105,8 @@ export const Dashboard = () => {
                   distribution based on Debian.
                 </p>
 
+              
+
                 <div className="mt-4 grid  grid-cols-12 ">
                   <div className="col-span-6  md:col-span-2">
                     <div className="text-sm">
@@ -124,7 +126,7 @@ export const Dashboard = () => {
                   </div>
                   <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
                     <div className="text-sm">
-                      Created Date : &nbsp;
+                      End Date : &nbsp;
                       <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
                         2022-05-15
                       </span>
