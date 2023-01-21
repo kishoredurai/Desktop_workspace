@@ -123,7 +123,7 @@ const [password,setPassword] = useState('');
     fetch("http://localhost:5000/api/user/login", {
       method: "post",
       body: JSON.stringify({
-        email: event.email,
+        username: event.email,
        
       }),
       headers: {

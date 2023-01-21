@@ -2,10 +2,60 @@ import { React, useState } from "react";
 
 import Header from "../../layout/header/header";
 import ActivationHeader from "../../layout/header/activation_header";
+import { useNavigate } from "react-router-dom";
 export const Signup = () => {
+  const navigate = useNavigate();
+
   const [profile,setProfile]=useState({});
-  var item_value = JSON.parse(sessionStorage.getItem("admin_key"));
-const pp=item_value.picture;
+  const item_value = JSON.parse(sessionStorage.getItem("activation_key"));
+  const pp=item_value.picture;
+
+  const [mobile,setMobile]=useState('');
+ const FormSubmit = (event) => {
+
+  event.preventDefault();
+  console.log(mobile);
+
+
+
+  ///sign request 
+
+  fetch("http://localhost:5000/api/user/activation", {
+      method: "post",
+      body: JSON.stringify({
+        userid: item_value.userid,
+        picture: item_value.picture,
+        mobile: mobile,
+      }),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error("Server responds with error!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data["message"]==="success") {
+
+          sessionStorage.clear();
+          sessionStorage.setItem("item_key", JSON.stringify(item_value));
+          navigate("/dashboard")
+
+        } else {
+          alert("no");
+        }
+      });
+
+
+
+
+ }
+
+
+
   return (
     <>
     <ActivationHeader />
@@ -47,7 +97,7 @@ const pp=item_value.picture;
               </form>
             </div>
             <div className="mt-5 md:col-span-2 md:mt-0 pb-5">
-              <form action="/">
+              <form onSubmit={FormSubmit}>
                 <div className="border border-gray-200 overflow-hidden shadow shadow-md sm:rounded-md">
                   <div className="px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
@@ -60,9 +110,10 @@ const pp=item_value.picture;
                         </label>
                         <input
                           type="text"
-                          name="first-name"
-                          id="first-name"
-                          autoComplete="given-name"
+                          
+                          placeholder={item_value.name}
+
+                          readOnly
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -77,8 +128,8 @@ const pp=item_value.picture;
                         <input
                           type="text"
                           name="email-address"
-                          id="email-address"
-                          autoComplete="email"
+                          readOnly
+                          placeholder={item_value.email}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -95,10 +146,8 @@ const pp=item_value.picture;
                           Mobile Number
                         </label>
                         <input
-                          type="text"
-                          name="region"
-                          id="region"
-                          autoComplete="address-level1"
+                          type="number"
+                          onChange={(e) =>  setMobile(e.target.value)}
                           className=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>

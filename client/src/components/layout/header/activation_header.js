@@ -33,7 +33,7 @@ const ActivationHeader = () => {
 
   useEffect(() => {
     const profile = () => {
-      var item_value = JSON.parse(sessionStorage.getItem("admin_key"));
+      var item_value = JSON.parse(sessionStorage.getItem("activation_key"));
       // console.log(item_value.picture);
       setProfile(item_value);
     };
