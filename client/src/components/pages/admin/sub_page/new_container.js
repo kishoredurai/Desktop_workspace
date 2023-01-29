@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Admin_header from '../../../layout/header/admin_header'
 import { useNavigate } from 'react-router-dom'
 import loading_gif from '../../../images/icons8-rhombus-loasder.gif'
@@ -9,8 +9,100 @@ export const New_container = () => {
   const [batchstat, setBatchstat] = useState()
   const [userstat, setuserstat] = useState()
 
-  const [startdate, setStartdate] = useState()
-  const [enddate, setEnddate] = useState()
+
+  const [checkedValues, setCheckedValues] = useState([]);
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    if (event.target.checked) {
+      setCheckedValues([...checkedValues, value]);
+    } else {
+      setCheckedValues(checkedValues.filter(val => val !== value));
+    }
+    
+
+  }
+
+
+  useEffect(() => {
+    setFormData({ ...formData, add_features: checkedValues  })
+    // console.log(checkedValues)
+  }, [checkedValues])
+
+
+
+  // form data
+
+  const [userdetails, setUserdetails] = useState({
+    email:'',
+    name:'',
+    containerpassword:''
+  })
+
+   const [formData, setFormData] = useState({
+    batchname: '',
+    batchdescription: '',
+    imageid: '63cabfc368bfee674fe60aa2',
+    startdate: '',
+    enddate: '',
+    totaldays: 0,
+    cpulimit : 0,
+
+    userdetails : {
+      email:'',
+      name:'',
+      containerpassword:'' ,
+    },
+    adminid : '63cabfc368bfee674fe60aa2',
+  });
+
+
+
+  // form submit 
+
+ 
+
+  const submit_form = (event) => {
+    event.preventDefault();
+    console.log(checkedValues);
+    console.log(formData);
+
+      test();
+  }
+
+  const test = () => {
+
+      console.log(formData);
+
+      fetch("http://localhost:5000/api/container/create", {
+        method: "post",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-type": "application/JSON",
+        },
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend")
+       })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (data["message"]==="success") {
+            alert("done");
+           
+  
+          } else {
+            alert("no");
+          }
+        });
+
+        
+  }
+
 
   //  const day_calculate = () => {
 
@@ -40,7 +132,7 @@ export const New_container = () => {
           <div className="justify-center text-6xl border-2 border-gray-300 rounded-lg shadow-lg bg-white flex flex-col items-center ">
             <div className="w-full md:h-full">
               <div className=" md:col-span-2 md:mt-0">
-                <form action="/">
+                <form onSubmit={submit_form}>
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="p-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -95,9 +187,8 @@ export const New_container = () => {
                             </label>
                             <input
                               type="text"
-                              name="first-name"
-                              id="first-name"
-                              autoComplete="given-name"
+                              name="batchname"
+                              onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             />
                             <p
@@ -142,15 +233,15 @@ export const New_container = () => {
                             htmlFor="city"
                             className="block text-base font-bold text-gray-700"
                           >
-                            Image Description
+                            Bacth Description
                           </label>
                           <textarea
                             type="text"
-                            name="city"
+                            name="batchdescription"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                             cols={40}
                             rows="10"
-                            id="city"
-                            autoComplete="address-level2"
+                            
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                           <p
@@ -196,10 +287,8 @@ export const New_container = () => {
                           </label>
                           <input
                             type="date"
-                            name="email-address"
-                            onChange={(e) => {
-                              setStartdate(e.target.value)
-                            }}
+                            name="startdate"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
@@ -212,10 +301,9 @@ export const New_container = () => {
                           </label>
                           <input
                             type="date"
-                            name="email-address"
-                            onChange={(e) => {
-                              setEnddate(e.target.value)
-                            }}
+                            name="enddate"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
+
                             autoComplete="email"
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
@@ -229,7 +317,8 @@ export const New_container = () => {
                           </label>
                           <input
                             type="text"
-                            name="total_days"
+                            name="totaldays"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: Number(e.target.value) })}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
@@ -242,9 +331,10 @@ export const New_container = () => {
                           </label>
                           <input
                             type="number"
-                            name="email-address"
+                            name="cpulimit"
                             min="1"
                             max="5"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: Number(e.target.value) })}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                           <p
@@ -267,7 +357,13 @@ export const New_container = () => {
                               <input
                                 id="inline-checkbox"
                                 type="checkbox"
-                                value=""
+                                value="internet"
+                                onChange={
+                                  handleChange
+                               
+                                }
+                              
+
                                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
@@ -278,7 +374,11 @@ export const New_container = () => {
                               <input
                                 id="inline-2-checkbox"
                                 type="checkbox"
-                                value=""
+                                value="root"
+
+                                onChange={
+                                  handleChange
+                                }
                                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
@@ -289,7 +389,8 @@ export const New_container = () => {
                               <input
                                 id="inline-2-checkbox"
                                 type="checkbox"
-                                value=""
+                                value="gpu"
+                                onChange={handleChange}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
@@ -352,9 +453,10 @@ export const New_container = () => {
                               </label>
                               <input
                                 type="text"
-                                name="first-name"
-                                id="first-name"
-                                autoComplete="given-name"
+                                name='email'
+                                onChange={(e) =>  { setUserdetails({ ...userdetails, [e.target.name]: e.target.value });
+                                    setFormData({ ...formData, userdetails: userdetails });
+                                    } }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -373,9 +475,10 @@ export const New_container = () => {
                               </label>
                               <input
                                 type="text"
-                                name="first-name"
-                                id="first-name"
-                                autoComplete="given-name"
+                                name="name"
+                                onChange={(e) =>  { setUserdetails({ ...userdetails, [e.target.name]: e.target.value });
+                                setFormData({ ...formData, userdetails: userdetails });
+                                } }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -394,9 +497,10 @@ export const New_container = () => {
                               </label>
                               <input
                                 type="text"
-                                name="first-name"
-                                id="first-name"
-                                autoComplete="given-name"
+                                name="containerpassword"
+                                onChange={(e) =>  { setUserdetails({ ...userdetails, [e.target.name]: e.target.value });
+                                setFormData({ ...formData, userdetails: userdetails });
+                                } }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -454,8 +558,8 @@ export const New_container = () => {
                         <div className="pt-3 items-center col-span-6 sm:col-span-4">
                           <div className="flex pt-4 ml-0 space-x-3 justify-center">
                             <button
-                              type="button"
-                              onClick={() => setShowModal(true)}
+                              type="submit"
+                              // onClick={() => setShowModal(true)}
                               className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                             >
                               Submit

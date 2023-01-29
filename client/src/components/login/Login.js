@@ -86,6 +86,9 @@ const [password,setPassword] = useState('');
         "Content-type": "application/JSON",
       },
     })
+    .catch((error) => {
+     alert("Unable to connect Backend")
+    })
       .then((res) => {
         if (res.status >= 400) {
           throw new Error("Server responds with error!");

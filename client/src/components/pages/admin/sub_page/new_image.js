@@ -9,20 +9,54 @@ export const New_image = () => {
   // form data
 
   const [formData, setFormData] = useState({
-    image_name: '',
-    base_image: '',
-    image_version: '',
-    pull_command: '',
-    image_description: '',
-    gpu_support: false ,
-
+    imagename: '',
+    baseimage: '',
+    imageversion: '',
+    imagepull: '',
+    imagedescription: '',
+    requiregpu: false ,
+    adminid : '',
   });
 
 
-  const submit_form = () => {
+  const submit_form = (event) => {
+    event.preventDefault();
+    var item_value = JSON.parse(sessionStorage.getItem('admin_key'))
 
+    formData['adminid']=item_value.userid;
     console.log(formData);
+
+    fetch("http://localhost:5000/api/image/create", {
+      method: "post",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
+    .catch((error) => {
+      alert("Unable to connect Backend")
+     })
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error("Server responds with error!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data["message"]==="done") {
+          alert("done");
+          navigate("/admin/image/")       
+
+        } else {
+          alert("no");
+        }
+      });
+
+
   }
+
+
+  
 
 
 
@@ -45,7 +79,7 @@ export const New_image = () => {
           <div className="justify-center text-6xl border-2 border-gray-300 rounded-lg shadow-lg bg-white flex flex-col items-center ">
             <div className="w-full md:h-full">
               <div className=" md:col-span-2 md:mt-0">
-                <form action="/">
+                <form onSubmit={submit_form}>
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="p-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -57,9 +91,10 @@ export const New_image = () => {
                           </label>
                           <input
                             type="text"
-                            name="image_name"
-                            id="image-name"
+                            name="imagename"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            required
                           />
                           <p
                             id="helper-text-explanation"
@@ -77,10 +112,11 @@ export const New_image = () => {
                           </label>
                           <input
                             type="text"
-                            name="base_image"
+                            name="baseimage"
                             id="base-image"
                             onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })                           }
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            required
                           />
                           <p
                             id="helper-text-explanation"
@@ -98,10 +134,11 @@ export const New_image = () => {
                           </label>
                           <input
                             type="text"
-                            name="image_version"
+                            name="imageversion"
                             id="email-address"
                             onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })                           }
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            required
                           />
                           <p
                             id="helper-text-explanation"
@@ -119,10 +156,11 @@ export const New_image = () => {
                           </label>
                           <input
                             type="text"
-                            name="pull_command"
+                            name="imagepull"
                             id="email-address"
                             onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })                           }
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            required
                           />
                           <p
                             id="helper-text-explanation"
@@ -141,8 +179,9 @@ export const New_image = () => {
                           </label>
                           <textarea
                             type="text"
-                            name="image_description"
+                            name="imagedescription"
                             cols={40}
+                            required
                             rows="10"
                             id="city"
                             onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })                           }
@@ -164,34 +203,36 @@ export const New_image = () => {
                             Gpu Support
                           </label>
 
-                          <div class="flex">
-                            <div class="flex items-center mr-4">
+                          <div className="flex">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-radio"
                                 type="radio"
-                                name="gpu_support"
+                                name="requiregpu"
+                                required
                                 onClick={(e) =>   setFormData({ ...formData, [e.target.name]: true })}
 
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-radio"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                htmlFor="inline-radio"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                               >
                                 Yes
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-2-radio"
                                 type="radio"
-                                name="gpu_support"
+                                name="requiregpu"
+                                required
                                 onClick={(e) =>   setFormData({ ...formData, [e.target.name]: false })}
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-2-radio"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                htmlFor="inline-2-radio"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                               >
                                 No
                               </label>
@@ -200,8 +241,8 @@ export const New_image = () => {
                           <div className="pt-3 col-span-6 sm:col-span-3">
                             <div className="flex pt-4 ml-0 space-x-3 justify-center">
                               <button
-                                type="button"
-                                onClick={submit_form()}
+                                type="submit"
+                               
                                 className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                               >
                                 Submit
@@ -225,62 +266,7 @@ export const New_image = () => {
             </div>
           </div>
 
-          {/* <div className="flex flex-col text-6xl rounded-xl float-right">
-            <div className="justify-center mb-10">
-              <div className="block p-6 border-2 border-gray-300 rounded-lg shadow-lg bg-white ">
-                <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
-                  Declaration
-                </h5>
-
-                <fieldset className="pt-3 mr-40 w-full">
-                  <div className="flex items-center mb-4">
-                    <input
-                      id="default-checkbox"
-                      type="checkbox"
-                      value=""
-                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
-                    >
-                      I hereby declare that the above mentioned information is
-                      correct to the best of my knowledge .
-                    </label>
-                  </div>
-                  <div className="flex items-center mb-4">
-                    <input
-                      id="default-checkbox"
-                      type="checkbox"
-                      value=""
-                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
-                    >
-                      I bear the responsibility for the correctness of the above
-                      mentioned particulars.
-                    </label>
-                  </div>
-                </fieldset>
-
-                <div className="flex pt-4 ml-0 space-x-3 justify-center">
-                  <button
-                    type="button"
-                    className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => navigate("/ticket")}
-                    className="inline-block px-6 w-full py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
+         
         </div>
       </div>
     </>
