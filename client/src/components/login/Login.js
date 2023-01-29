@@ -5,11 +5,44 @@ import { useGoogleOneTapLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { navigation } from "../constants/credentails";
 import logo from "../images/logo.png"
-
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import "./login.css";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 export const Login = () => {
+
+
+
+// toastfy notification
+
+
+
+
+const showToastMessage = () => {
+  toast.error('🦄 Please Check Your Internet Connection!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+};
+
+
+
+
+
+// end of toastify
+
+
 
 const navigate = useNavigate();
 
@@ -87,7 +120,8 @@ const [password,setPassword] = useState('');
       },
     })
     .catch((error) => {
-     alert("Unable to connect Backend")
+      showToastMessage();
+    //  alert("Unable to connect Backend")
     })
       .then((res) => {
         if (res.status >= 400) {
@@ -190,6 +224,8 @@ const [password,setPassword] = useState('');
 
   return (
     <>
+                <ToastContainer />
+
        <section className="containers">
             <div className="forms">
                 <div className="logos">
