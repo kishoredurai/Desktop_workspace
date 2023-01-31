@@ -27,6 +27,13 @@ import { User_profile } from "../pages/admin/user_profile";
 import { AdminUser } from "../pages/admin/sub_page/admin_user";
 
 
+
+
+// admin page update components
+
+import { UpdateImage } from "../pages/admin/sub_page/UpdateImage";
+
+
 function Router() {
   return (
     <BrowserRouter>
@@ -84,6 +91,10 @@ const routerList = [
     element: <New_image />
   },
   {
+    path: "/admin/image/update",
+    element: <UpdateImage />
+  },
+  {
     path: "/admin/container",
     element: <Container />
   },
@@ -103,6 +114,7 @@ const routerList = [
     path: "/admin/user/",
     element: <AdminUser />
   },
+  
   {
     path: "/test",
     element: <Test />
