@@ -2,11 +2,13 @@ import React from "react";
 import { useState } from "react";
 import MaterialTable from "material-table";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export const Image_table = () => {
 
 
   const [image, setImage] = useState([])
 
+  const navigate = useNavigate();
 
 
     
@@ -95,8 +97,21 @@ rowStyle:(data,index)=>index%2==0?{background:"#f5f5f5"}:null
    
   {icon:'edit',
   tooltip:"Edit Data",
- onClick:(e,data)=>console.log(data),
-},{icon:'delete',
+ onClick:(e,data)=>{
+  if(data.length === 1)
+  {
+    console.log(data.length);
+    navigate('/admin/image/update?id='+data[0]._id);
+  }
+  else
+    alert("select only one data")
+
+
+},
+},
+
+
+{icon:'delete',
 tooltip:"Delete Image ",
 onClick:(e,data)=>console.log(data),
 },

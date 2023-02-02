@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import MaterialTable from "material-table";
+import { useNavigate } from "react-router-dom";
 export const Container_user_table = () => {
+
+  const navigate = useNavigate()
+
 
 
     const [tableData,setTableData]=useState([
@@ -139,8 +143,17 @@ showSelectAllCheckbox: true, showTextRowsSelected: false,columnsButton:true,
          
         {icon:'edit',
         tooltip:"Edit Data",
-       onClick:(e,data)=>console.log(data),
-      },{icon:'delete',
+         onClick:(e,data)=>{console.log(data[0].user_id);
+        // navigate('/admin/image/update?id='+data.id)},
+      }
+      },
+      // {icon:'sendrounded',
+      //   tooltip:"Edit Data",
+      //  onClick:(e,data)=>console.log(data),
+      // },
+      
+      
+      {icon:'delete',
       tooltip:"Delete Image ",
      onClick:(e,data)=>console.log(data),
     },
