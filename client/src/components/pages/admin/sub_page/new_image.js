@@ -2,9 +2,11 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Admin_header from '../../../layout/header/admin_header'
 import { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 
 export const New_image = () => {
   const navigate = useNavigate();
+  const [disable, setDisable] = React.useState(false);
 
   // form data
 
@@ -21,6 +23,7 @@ export const New_image = () => {
 
   const submit_form = (event) => {
     event.preventDefault();
+    // setDisable(true)
     var item_value = JSON.parse(sessionStorage.getItem('admin_key'))
 
     formData['adminid']=item_value.userid;
@@ -43,9 +46,31 @@ export const New_image = () => {
         return res.json();
       })
       .then((data) => {
-        if (data["message"]==="done") {
-          alert("done");
-          navigate("/admin/image/")       
+        if (data["message"]==="success") {
+          toast.success('Image Created Successfully !!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+          setTimeout(() => {
+            navigate("/admin/image/")   
+          }, 3000);
+          // toast.success(' Image Created Successfully !!', {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          //   theme: "colored",
+          //   });
+          // navigate("/admin/image/")       
 
         } else {
           alert("no");
@@ -65,6 +90,7 @@ export const New_image = () => {
 
   return (
     <>
+     <ToastContainer />
       <Admin_header />
       <div className="w-full">
         <header className="bg-white ">
@@ -242,7 +268,8 @@ export const New_image = () => {
                             <div className="flex pt-4 ml-0 space-x-3 justify-center">
                               <button
                                 type="submit"
-                               
+                                disabled={disable}
+                                
                                 className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                               >
                                 Submit

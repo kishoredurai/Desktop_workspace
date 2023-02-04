@@ -16,6 +16,13 @@ export const Image_table = () => {
         {title:"Image Name",field:"imagename",},
         {title:"Base Image",field:"baseimage"},
         {title:"Image version",field:"imageversion"},
+        {title:"Image Status",field:"imagestatus",render:(rowData)=>
+          <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"
+          style={{background:rowData.imagestatus.localeCompare("active")===0?"Green":"red"}} >
+         {rowData.imagestatus}
+        </span>
+    
+    },
         {title:"Image Description",field:"imagedescription"},
     //     {title:"Image Status",field:"image_status",lookup:{active:"Active",declined:"Declined"},render:(rowData)=>
     //     <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"

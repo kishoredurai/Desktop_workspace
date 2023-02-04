@@ -56,6 +56,92 @@ export const Container_image = () => {
           </ol>
         </nav>
 
+
+
+         {/* count bar added  */}
+  
+      <section className="pt-6 py-0 container px-4 sm:px-1 mx-auto">
+          <div className="grid gap-6 mb-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
+              <div className="p-3 mr-4 bg-blue-500 text-white rounded-full">
+              <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className='w-12 h-12'
+    >
+      <path d="M19 17h-8v-1c0-1.33 2.67-2 4-2s4 .67 4 2m-4-7a2 2 0 012 2 2 2 0 01-2 2 2 2 0 01-2-2 2 2 0 012-2m5-3h-8l-2-2H4c-1.11 0-2 .89-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2z" />
+    </svg>
+              </div>
+              <div className="text-center float-center items-center">
+                <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
+                  58
+                </p>
+                <p className="flex px-10 text-sm font-normal text-gray-800">
+                 Total Images
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
+              <div className="p-3 mr-4 bg-green-500 text-white rounded-full">
+              <svg
+      fill="currentColor"
+      viewBox="0 0 16 16"
+     className='w-12 h-12'
+    >
+      <path d="M8 15A7 7 0 118 1a7 7 0 010 14zm0 1A8 8 0 108 0a8 8 0 000 16z" />
+      <path d="M10.97 4.97a.235.235 0 00-.02.022L7.477 9.417 5.384 7.323a.75.75 0 00-1.06 1.06L6.97 11.03a.75.75 0 001.079-.02l3.992-4.99a.75.75 0 00-1.071-1.05z" />
+    </svg>
+
+
+              </div>
+              <div className="text-center float-center items-center">
+                <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
+                  58
+                </p>
+                <p className="flex px-8 text-sm font-normal text-gray-800">
+                  Active Images
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
+              <div className="p-3 mr-4 bg-red-500 text-white rounded-full">
+              <svg
+      viewBox="0 0 512 512"
+      fill="currentColor"
+     className='w-12 h-12'
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeMiterlimit={10}
+        strokeWidth={40}
+        d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M320 320L192 192M192 320l128-128"
+      />
+    </svg>
+
+              </div>
+              <div className="text-center float-center items-center">
+                <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
+                  58
+                </p>
+                <p className="flex px-14 text-sm font-normal text-center text-gray-800">
+                  Inactive Images
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+  
+
 {/* Image Details Table */}
         <header>
           <button

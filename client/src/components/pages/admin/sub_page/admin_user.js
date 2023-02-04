@@ -1,17 +1,72 @@
 import React from "react";
 import Admin_header from "../../../layout/header/admin_header";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 export const AdminUser = () => {
+  const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false)
 
+    const [formData, setFormData] = useState({
+      name:'',
+      email:'',
+      user_type:'admin',
+      password:'',
+    });
+
+    const submit_form = (event) => {
+      event.preventDefault();
+      fetch("http://localhost:5000/api/admin/create", {
+        method: "post",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-type": "application/JSON",
+        },
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend")
+       })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (data["message"]==="success") {
+            
+           
+              setTimeout(() => {
+                toast.success('User Added Successfully !!', {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                  });
+    
+              }, 20);
+             
+              setShowModal(false);
+    
+  
+          } else {
+            alert("no");
+          }
+        });
+  
+    }
 
     return(
 
         <div>
         <Admin_header />
-
+      <ToastContainer />
 
         <div className="pt-6 p-2 sm:p-6 mt-3 py-6">
           <nav
@@ -113,15 +168,17 @@ export const AdminUser = () => {
                    New Admin User
                   </h3>
                
-                  <form className="space-y-6" action="#">
+                  <form className="space-y-6" onSubmit={submit_form}>
                     <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Name :
                       </label>
                       <input
                         type="text"
+                        name="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        
+                        onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
+                        required
                       />
                     </div>
                     <div>
@@ -131,9 +188,9 @@ export const AdminUser = () => {
                       <input
                         type="email"
                         name="email"
-                        id="email"
+                        onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                     
+                        required
                       />
                     </div>
                     <div>
@@ -143,7 +200,8 @@ export const AdminUser = () => {
                       <input
                         type="password"
                         name="password"
-                        id="password"
+                        onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
+                        required
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       />
                     </div>
@@ -151,7 +209,7 @@ export const AdminUser = () => {
                     {/* <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button> */}
                     <div className="sm:flex sm:flex-row-reverse ">
                       <button
-                        type="button"
+                        type="submit"
                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                         
                       >
