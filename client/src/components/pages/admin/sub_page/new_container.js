@@ -17,6 +17,7 @@ export const New_container = () => {
   const handleChange = (event) => {
     const { value } = event.target;
     if (event.target.checked) {
+      // setFormData({...formData, batch: { ...formData.batch, add_features : value }})
       setCheckedValues([...checkedValues, value]);
     } else {
       setCheckedValues(checkedValues.filter(val => val !== value));
@@ -91,12 +92,11 @@ export const New_container = () => {
     // console.log(checkedValues)
    
 
-    setBactchdetails({ ...batchdetails, add_features: checkedValues  })
-     setFormData({ ...formData, batch: batchdetails });
+    setFormData({ ...formData, batch: { ...formData.batch , add_features : checkedValues } });
 
 
     console.log(checkedValues);
-    console.log(batchdetails);
+    console.log(formData);
 
     // update();
   }, [checkedValues])
@@ -117,6 +117,9 @@ export const New_container = () => {
 
 
   const [batchdetails, setBactchdetails] = useState({
+    test:{
+      testname:''
+    },
     batchname: '',
     batchdescription: '',
     containerpassword:'',
@@ -130,11 +133,19 @@ export const New_container = () => {
 
 
    const [formData, setFormData] = useState({
-    batch: '',
+    batch: {
+      batchname: '',
+      batchdescription: '',
+      imageid: '',
+      add_features : [],
+      startdate: '',
+      enddate: '',
+      totaldays: 0,
+      cpulimit : 0
+    },
     userdetails : {
       email:'',
-      name:'',
-     
+      name:'',     
     },
     containerpassword:'' ,
     adminid : '63cabfc368bfee674fe60aa2',
@@ -148,17 +159,17 @@ export const New_container = () => {
 
   const submit_form = (event) => {
     event.preventDefault();
-    setFormData({ ...formData, batch: batchdetails });
+   
 
     console.log(checkedValues);
-    console.log(batchdetails);
+    console.log(formData);
 
       test();
   }
 
   const test = () => {
 
-      console.log(formData);
+      // console.log(formData);
 
       fetch("http://localhost:5000/api/container/creates", {
         method: "post",
@@ -267,10 +278,10 @@ export const New_container = () => {
                             </label>
                             <input
                               type="text"
-                              name="batchname"
-                              onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: e.target.value });
-                              setFormData({ ...formData, batch: batchdetails });
-                              } }
+                              name="testname"
+                              onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , batchname:e.target.value }
+                               });
+                              }}
                               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             />
                             <p
@@ -329,9 +340,10 @@ export const New_container = () => {
                           <textarea
                             type="text"
                             name="batchdescription"
-                            onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: e.target.value });
-                            setFormData({ ...formData, batch: batchdetails });
-                            } }
+                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , batchdescription:e.target.value }
+                            });
+                           }}
+                           
                                                         cols={40}
                             rows="10"
                             
@@ -356,10 +368,11 @@ export const New_container = () => {
                             id="inputState"
                             name="imageid"
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: e.target.value });
-                            setFormData({ ...formData, batch: batchdetails });
-                            } }
+                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , imageid:e.target.value }
+                            });
+                           }}
                           >
+                            <option value="choose">chooose .....</option>
                             {image ? (
  image.map(function(data, key)
   {  
@@ -391,9 +404,9 @@ export const New_container = () => {
                           <input
                             type="date"
                             name="startdate"
-                            onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: e.target.value });
-                            setFormData({ ...formData, batch: batchdetails });
-                            } }                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , startdate:e.target.value }
+                            });
+                           }}                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
                         <div className="col-span-6 sm:col-span-2">
@@ -406,9 +419,9 @@ export const New_container = () => {
                           <input
                             type="date"
                             name="enddate"
-                            onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: e.target.value });
-                            setFormData({ ...formData, batch: batchdetails });
-                            } }
+                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , enddate:e.target.value }
+                            });
+                           }}
                             autoComplete="email"
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
@@ -423,9 +436,9 @@ export const New_container = () => {
                           <input
                             type="text"
                             name="totaldays"
-                            onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: Number(e.target.value) });
-                            setFormData({ ...formData, batch: batchdetails });
-                            } }                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , totaldays: Number(e.target.value) }
+                            });
+                           }}                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
                         <div className="col-span-6 sm:col-span-6">
@@ -440,9 +453,9 @@ export const New_container = () => {
                             name="cpulimit"
                             min="1"
                             max="5"
-                            onChange={(e) =>  { setBactchdetails({ ...batchdetails, [e.target.name]: Number(e.target.value) });
-                            setFormData({ ...formData, batch: batchdetails });
-                            } }
+                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , cpulimit: Number(e.target.value) }
+                            });
+                           }}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                           <p
@@ -561,9 +574,9 @@ export const New_container = () => {
                               <input
                                 type="text"
                                 name='email'
-                                onChange={(e) =>  { setUserdetails({ ...userdetails, [e.target.name]: e.target.value });
-                                    setFormData({ ...formData, userdetails: userdetails });
-                                    } }
+                                onChange={(e) =>  { setFormData({ ...formData, userdetails: { ...formData.userdetails , email :e.target.value }
+                                });
+                               }}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -583,9 +596,9 @@ export const New_container = () => {
                               <input
                                 type="text"
                                 name="name"
-                                onChange={(e) =>  { setUserdetails({ ...userdetails, [e.target.name]: e.target.value });
-                                setFormData({ ...formData, userdetails: userdetails });
-                                } }
+                                onChange={(e) =>  { setFormData({ ...formData, userdetails: { ...formData.userdetails , name :e.target.value }
+                                });
+                               }}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
