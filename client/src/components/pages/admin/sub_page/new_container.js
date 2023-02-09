@@ -20,6 +20,57 @@ export const New_container = () => {
   });
 
 
+
+
+
+  /// date and total days
+
+
+  let totalDays = 0
+  const [enddate , setEnddate] = useState(new Date());
+  const [startdate , setStartdate] = useState(new Date());
+  const [total,setTotal] = useState(0);
+
+
+  const handleStartDateChange = (event) => {
+    setStartdate(new Date(event.target.value));
+  };
+
+  const handleEndDateChange = (event) => {
+    setEnddate(event.target.value);
+  };
+
+  useEffect(() => {
+    if (startdate && enddate) {
+      let start = new Date(startdate);
+      let end = new Date(enddate);
+      let diffTime = Math.abs(end - start);
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+     
+        setFormData({
+          ...formData,
+          batch: {
+            ...formData.batch,
+            totaldays: diffDays,
+          },
+        });
+        setTotal(diffDays);
+    } else {
+      setFormData({
+        ...formData,
+        batch: {
+          ...formData.batch,
+          totaldays: 0,
+        },
+      });
+    }
+  }, [startdate, enddate]);
+
+
+
+
+
+
   // check box value set
   const [checkedValues, setCheckedValues] = useState([]);
 
@@ -161,7 +212,7 @@ export const New_container = () => {
   const test = () => {
     // console.log(formData);
 
-    fetch("http://localhost:5000/api/container/creates", {
+    fetch("http://localhost:5000/api/container/create", {
       method: "post",
       body: JSON.stringify(formData),
       headers: {
@@ -387,13 +438,14 @@ export const New_container = () => {
                                 Batch Start Date
                               </label>
 
-                              {batchstat != "existing" ? (
+                             
                                 <input
                                   type="date"
                                   name="startdate"
-                                  // value={singlebatch?singlebatch.startdate:""}
+                                  min={startdate.toISOString().split("T")[0]}
 
                                   onChange={(e) => {
+                                    
                                     setFormData({
                                       ...formData,
                                       batch: {
@@ -401,17 +453,14 @@ export const New_container = () => {
                                         startdate: e.target.value,
                                       },
                                     });
+
+                                    handleStartDateChange(e);
+
+
                                   }}
                                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 />
-                              ) : (
-                                <input
-                                  type="text"
-                                  name="startdate"
-                                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                  readOnly
-                                />
-                              )}
+                             
                             </div>
                             <div className="col-span-6 sm:col-span-2">
                               <label
@@ -421,11 +470,12 @@ export const New_container = () => {
                                 Batch End Date
                               </label>
 
-                              {batchstat != "existing" ? (
                                 <input
                                   type="date"
                                   name="enddate"
+                                  min={startdate.toISOString().split("T")[0]}
                                   onChange={(e) => {
+
                                     setFormData({
                                       ...formData,
                                       batch: {
@@ -433,18 +483,12 @@ export const New_container = () => {
                                         enddate: e.target.value,
                                       },
                                     });
+
+                                    handleEndDateChange(e);
                                   }}
                                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 />
-                              ) : (
-                                <input
-                                  type="text"
-                                  name="startdate"
-                                  value={singlebatch ? singlebatch.enddate : ""}
-                                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                  readOnly
-                                />
-                              )}
+                           
                             </div>
                             <div className="col-span-6 sm:col-span-2">
                               <label
@@ -456,22 +500,9 @@ export const New_container = () => {
                               <input
                                 type="text"
                                 name="totaldays"
-                                readOnly={
-                                  singlebatch && batchstat === "existing"
-                                    ? singlebatch.totaldays
-                                    : 0
-                                }
-                                // value={singlebatch?singlebatch.totaldays:0}
-
-                                onChange={(e) => {
-                                  setFormData({
-                                    ...formData,
-                                    batch: {
-                                      ...formData.batch,
-                                      totaldays: Number(e.target.value),
-                                    },
-                                  });
-                                }}
+                                value={total}
+                                  readOnly
+                                
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                             </div>
@@ -674,7 +705,7 @@ export const New_container = () => {
                               </label>
 
                               <input
-                                type="text"
+                                type="date"
                                 value={singlebatch ? singlebatch.startdate : ""}
                                 readOnly
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -689,7 +720,7 @@ export const New_container = () => {
                               </label>
 
                               <input
-                                type="text"
+                                type="date"
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 value={singlebatch ? singlebatch.enddate : ""}
                                 readOnly
