@@ -1,46 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import Admin_header from '../../../layout/header/admin_header'
-import { useNavigate } from 'react-router-dom'
-import loading_gif from '../../../images/icons8-rhombus-loasder.gif'
+import React, { useEffect, useState } from "react";
+import Admin_header from "../../../layout/header/admin_header";
+import { useNavigate } from "react-router-dom";
+import loading_gif from "../../../images/icons8-rhombus-loasder.gif";
 
 export const New_container = () => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const [batchstat, setBatchstat] = useState();
   const [userstat, setuserstat] = useState();
 
-  const [batch,setBatch] = useState();
-  const [image,setImage] = useState();
+  const [batch, setBatch] = useState();
+  const [image, setImage] = useState();
 
+  const [singlebatch, setSinglebatch] = useState();
+  // form data
+
+  const [formData, setFormData] = useState({
+    adminid: "63cc1fb67b2822fa6b320c8c"
+  });
+
+
+  // check box value set
   const [checkedValues, setCheckedValues] = useState([]);
 
   const handleChange = (event) => {
     const { value } = event.target;
     if (event.target.checked) {
-      // setFormData({...formData, batch: { ...formData.batch, add_features : value }})
       setCheckedValues([...checkedValues, value]);
     } else {
-      setCheckedValues(checkedValues.filter(val => val !== value));
+      setCheckedValues(checkedValues.filter((val) => val !== value));
     }
-    // setBactchdetails({ ...batchdetails, add_features: checkedValues  })
-    // setFormData({ ...formData, batch: batchdetails });
+  };
 
-  }
+  // slicing exisiting batch details:
 
+  const slicedata = (id) => {
+    var slice = batch.find((item) => item._id === id);
+    setSinglebatch(slice);
+
+    setFormData({
+      ...formData,
+      batchid: id,
+    });
+ 
+
+
+  };
 
   // get image details
-  const getimage =() => {
-
-
+  const getimage = () => {
     fetch("http://localhost:5000/api/container/imageList", {
-      method: "get",      
+      method: "get",
       headers: {
         "Content-type": "application/JSON",
       },
     })
-    .catch((error) => {
-      alert("Unable to connect Backend")
-     })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
       .then((res) => {
         if (res.status >= 400) {
           throw new Error("Server responds with error!");
@@ -51,24 +68,20 @@ export const New_container = () => {
         console.log(data);
         setImage(data);
       });
-
-
-  }
+  };
 
   // get batch details
 
-  const getbatch =() => {
-
-
+  const getbatch = () => {
     fetch("http://localhost:5000/api/batch/container/list", {
-      method: "get",      
+      method: "get",
       headers: {
         "Content-type": "application/JSON",
       },
     })
-    .catch((error) => {
-      alert("Unable to connect Backend")
-     })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
       .then((res) => {
         if (res.status >= 400) {
           throw new Error("Server responds with error!");
@@ -79,128 +92,109 @@ export const New_container = () => {
         console.log(data);
         setBatch(data);
       });
+  };
 
+  useEffect(() => {
 
-  }
+    if(batchstat === 'new')
+        setFormData({
+          ...formData,
+          batch: { ...formData.batch, add_features: checkedValues },
+        });
 
-
+    // console.log(checkedValues);
+    // console.log(formData);
+  }, [checkedValues]);
 
 
 
   useEffect(() => {
-
-    // console.log(checkedValues)
-   
-
-    setFormData({ ...formData, batch: { ...formData.batch , add_features : checkedValues } });
-
-
-    console.log(checkedValues);
-    console.log(formData);
-
-    // update();
-  }, [checkedValues])
-
-
-  useEffect(() => {
-    
     getimage();
+   
     // console.log(checkedValues)
-  },[])
-
-  // form data
-
-  const [userdetails, setUserdetails] = useState({
-    email:'',
-    name:'',
-  })
+  }, []);
 
 
-  const [batchdetails, setBactchdetails] = useState({
-    test:{
-      testname:''
-    },
-    batchname: '',
-    batchdescription: '',
-    containerpassword:'',
-    imageid: '',
-    add_features : [],
-    startdate: '',
-    enddate: '',
-    totaldays: 0,
-    cpulimit : 0,
-  })
+  useEffect(() => {
+    if(batchstat === 'new')
+    {
+     
+        delete formData['batchid'];
+        delete formData['add_features'];
+        delete formData['batch'];
+        delete formData['userdetails'];
+        delete formData['containerpassword'];
 
+     
+      
 
-   const [formData, setFormData] = useState({
-    batch: {
-      batchname: '',
-      batchdescription: '',
-      imageid: '',
-      add_features : [],
-      startdate: '',
-      enddate: '',
-      totaldays: 0,
-      cpulimit : 0
-    },
-    userdetails : {
-      email:'',
-      name:'',     
-    },
-    containerpassword:'' ,
-    adminid : '63cabfc368bfee674fe60aa2',
-  });
+    }
+    else
+    {
+     
+      delete formData['batchid'];
+      delete formData['add_features'];
+      delete formData['batch'];
+      delete formData['userdetails'];
+      delete formData['containerpassword']; 
+      
+    }
+    setuserstat('')
+    // console.log(checkedValues)
+  }, [batchstat]);
+  
 
-
-
-  // form submit 
-
- 
+  // form submit
 
   const submit_form = (event) => {
     event.preventDefault();
-   
 
     console.log(checkedValues);
     console.log(formData);
 
-      test();
-  }
+   
+
+    test();
+  
+  };
 
   const test = () => {
+    // console.log(formData);
 
-      // console.log(formData);
-
-      fetch("http://localhost:5000/api/container/creates", {
-        method: "post",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-type": "application/JSON",
-        },
-      })
+    fetch("http://localhost:5000/api/container/creates", {
+      method: "post",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
       .catch((error) => {
-        alert("Unable to connect Backend")
-       })
-        .then((res) => {
-          if (res.status >= 400) {
-            throw new Error("Server responds with error!");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          if (data["message"]==="success") {
-            alert("done");
-            
-          } else {
-            alert("no");
-          }
-        });
+        alert("Unable to connect Backend");
+      })
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error("Server responds with error!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data["message"] === "success") {
+          alert("done");
+        } else {
+          alert("no");
+        }
+      });
+  };
 
-        
-  }
+  
 
 
-  const navigate = useNavigate()
+
+
+
+
+
+  const navigate = useNavigate();
   return (
     <>
       <Admin_header />
@@ -229,296 +223,561 @@ export const New_container = () => {
                             New or Existing Batch
                           </label>
 
-                          <div class="flex">
-                            <div class="flex items-center mr-4">
+                          <div className="flex">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-radio"
                                 type="radio"
+                                required
                                 onChange={(e) => {
-                                  setBatchstat('new');
-                                  
+                                  setBatchstat("new");
+                                  setSinglebatch("");                             
+                                
                                 }}
                                 name="inline-radio-group1"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-radio"
-                                class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                                htmlFor="inline-radio"
+                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                               >
                                 New
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-2-radio"
                                 type="radio"
                                 onChange={(e) => {
-                                  setBatchstat('existing');
+                                  setBatchstat("existing");
                                   getbatch();
+                                  
+                                
                                 }}
                                 name="inline-radio-group1"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-2-radio"
-                                class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                                htmlFor="inline-2-radio"
+                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
                               >
                                 Exisitng
                               </label>
                             </div>
                           </div>
                         </div>
-                        {batchstat === 'new' ? (
-                          <div className="col-span-6 sm:col-span-6">
-                            <label
-                              htmlFor="first-name"
-                              className="block text-base font-bold text-gray-700"
-                            >
-                              New Batch Name
-                            </label>
-                            <input
-                              type="text"
-                              name="testname"
-                              onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , batchname:e.target.value }
-                               });
-                              }}
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                            <p
-                              id="helper-text-explanation"
-                              className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                            >
-                              Enter New for Batch Name
-                            </p>
-                          </div>
-                        ) : null}
-
-                        {batchstat === 'existing' ? (
-                          <div className="col-span-6 sm:col-span-6">
-                            <label
-                              htmlFor="first-name"
-                              className="block text-base font-bold text-gray-700"
-                            >
-                              Select Bacth Name
-                            </label>
-                            <select
-                              id="inputState"
-                              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            >
-                                                            <option value="choose">Choose...</option>
-
-                               {batch ? (
- batch.map(function(data, key)
-  {  
-    return (
-<option key={key} value={data._id}>{data.batchname}</option> 
-)
-})
-
-                            ):null}
-                           
-                           
-                              
-                            </select>
-
-                            <p
-                              id="helper-text-explanation"
-                              className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                            >
-                              Select a existing batch
-                            </p>
-                          </div>
-                        ) : null}
-
-                        <div className="col-span-6 sm:col-span-6">
-                          <label
-                            htmlFor="city"
-                            className="block text-base font-bold text-gray-700"
-                          >
-                            Bacth Description
-                          </label>
-                          <textarea
-                            type="text"
-                            name="batchdescription"
-                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , batchdescription:e.target.value }
-                            });
-                           }}
-                           
-                                                        cols={40}
-                            rows="10"
-                            
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          />
-                          <p
-                            id="helper-text-explanation"
-                            className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                          >
-                            Explain briefly about the batch
-                          </p>
-                        </div>
-
-                        <div className="col-span-6 sm:col-span-6">
-                          <label
-                            htmlFor="first-name"
-                            className="block text-base font-bold text-gray-700"
-                          >
-                            Select Container Image
-                          </label>
-                          <select
-                            id="inputState"
-                            name="imageid"
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , imageid:e.target.value }
-                            });
-                           }}
-                          >
-                            <option value="choose">chooose .....</option>
-                            {image ? (
- image.map(function(data, key)
-  {  
-    return (
-<option key={key} value={data._id}>{data.imagename}</option> 
-)
-})
-
-                            ):null}
-                           
-                           
-                          </select>
-
-                          <p
-                            id="helper-text-explanation"
-                            className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                          >
-                            If image name doesnt existing then add it ... !
-                          </p>
-                        </div>
-
-                        <div className="col-span-6 sm:col-span-2">
-                          <label
-                            htmlFor="first-name"
-                            className="block text-base font-bold text-gray-700"
-                          >
-                            Batch Start Date
-                          </label>
-                          <input
-                            type="date"
-                            name="startdate"
-                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , startdate:e.target.value }
-                            });
-                           }}                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          />
-                        </div>
-                        <div className="col-span-6 sm:col-span-2">
-                          <label
-                            htmlFor="first-name"
-                            className="block text-base font-bold text-gray-700"
-                          >
-                            Batch End Date
-                          </label>
-                          <input
-                            type="date"
-                            name="enddate"
-                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , enddate:e.target.value }
-                            });
-                           }}
-                            autoComplete="email"
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          />
-                        </div>
-                        <div className="col-span-6 sm:col-span-2">
-                          <label
-                            htmlFor="first-name"
-                            className="block text-base font-bold text-gray-700"
-                          >
-                            Total Days
-                          </label>
-                          <input
-                            type="text"
-                            name="totaldays"
-                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , totaldays: Number(e.target.value) }
-                            });
-                           }}                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          />
-                        </div>
-                        <div className="col-span-6 sm:col-span-6">
-                          <label
-                            htmlFor="first-name"
-                            className="block text-base font-bold text-gray-700"
-                          >
-                            CPU limit
-                          </label>
-                          <input
-                            type="number"
-                            name="cpulimit"
-                            min="1"
-                            max="5"
-                            onChange={(e) =>  { setFormData({ ...formData, batch: { ...formData.batch , cpulimit: Number(e.target.value) }
-                            });
-                           }}
+                        {batchstat === "new" ? (
+                          <>
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                New Batch Name
+                              </label>
+                              <input
+                                type="text"
+                                name="testname"
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    batch: {
+                                      ...formData.batch,
+                                      batchname: e.target.value,
+                                    },
+                                  });
+                                }}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          />
-                          <p
-                            id="helper-text-explanation"
-                            className="mt-2 text-xs text-gray-500 dark:text-gray-400"
-                          >
-                            Limit : ( 1-5 )
-                          </p>
-                        </div>
-                        <div className="col-span-6 sm:col-span-6 ">
-                          <label
-                            htmlFor="region"
-                            className="block text-base font-medium text-gray-700 mb-3"
-                          >
-                            Additional Features
-                          </label>
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Enter New htmlFor Batch Name
+                              </p>
+                            </div>
 
-                          <div className="flex">
-                            <div className="flex items-center mr-4">
-                              <input
-                                id="inline-checkbox"
-                                type="checkbox"
-                                value="internet"
-                                onChange={
-                                  handleChange                               
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="city"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Bacth Description
+                              </label>
+                              <textarea
+                                type="text"
+                                placeholder={
+                                  singlebatch && batchstat === "existing"
+                                    ? singlebatch.batchdescription
+                                    : ""
                                 }
+                                name="batchdescription"
+                                readOnly={
+                                  batchstat === "existing" ? true : false
+                                }
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    batch: {
+                                      ...formData.batch,
+                                      batchdescription: e.target.value,
+                                    },
+                                  });
+                                }}
+                                cols={40}
+                                rows="10"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Explain briefly about the batch
+                              </p>
+                            </div>
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Select Container Image
+                              </label>
+                              <select
+                                id="inputState"
+                                name="imageid"
                               
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    batch: {
+                                      ...formData.batch,
+                                      imageid: e.target.value,
+                                    },
+                                  });
+                                }}
+                              >
+                                <option value="none" selected>
+                                  chooose .....
+                                </option>
+                                {image
+                                  ? image.map(function (data, key) {
+                                      return (
+                                        <option key={key} value={data._id}>
+                                          {data.imagename}
+                                        </option>
+                                      );
+                                    })
+                                  : null}
+                              </select>
 
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
-                                Internet Access
-                              </label>
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                If image name doesnt existing then add it ... !
+                              </p>
                             </div>
-                            <div className="flex items-center mr-4">
-                              <input
-                                id="inline-2-checkbox"
-                                type="checkbox"
-                                value="root"
 
-                                onChange={
-                                  handleChange
+                            <div className="col-span-6 sm:col-span-2">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Batch Start Date
+                              </label>
+
+                              {batchstat != "existing" ? (
+                                <input
+                                  type="date"
+                                  name="startdate"
+                                  // value={singlebatch?singlebatch.startdate:""}
+
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      batch: {
+                                        ...formData.batch,
+                                        startdate: e.target.value,
+                                      },
+                                    });
+                                  }}
+                                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                              ) : (
+                                <input
+                                  type="text"
+                                  name="startdate"
+                                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  readOnly
+                                />
+                              )}
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Batch End Date
+                              </label>
+
+                              {batchstat != "existing" ? (
+                                <input
+                                  type="date"
+                                  name="enddate"
+                                  onChange={(e) => {
+                                    setFormData({
+                                      ...formData,
+                                      batch: {
+                                        ...formData.batch,
+                                        enddate: e.target.value,
+                                      },
+                                    });
+                                  }}
+                                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                              ) : (
+                                <input
+                                  type="text"
+                                  name="startdate"
+                                  value={singlebatch ? singlebatch.enddate : ""}
+                                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  readOnly
+                                />
+                              )}
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Total Days
+                              </label>
+                              <input
+                                type="text"
+                                name="totaldays"
+                                readOnly={
+                                  singlebatch && batchstat === "existing"
+                                    ? singlebatch.totaldays
+                                    : 0
                                 }
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                // value={singlebatch?singlebatch.totaldays:0}
+
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    batch: {
+                                      ...formData.batch,
+                                      totaldays: Number(e.target.value),
+                                    },
+                                  });
+                                }}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
-                              <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
-                                Root Access
-                              </label>
                             </div>
-                            <div className="flex items-center mr-4">
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                CPU limit
+                              </label>
                               <input
-                                id="inline-2-checkbox"
-                                type="checkbox"
-                                value="gpu"
-                                onChange={handleChange}
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                type="number"
+                                name="cpulimit"
+                                min="1"
+                                max="5"
+                                // value={singlebatch && singlebatch.cpulimit}
+
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    batch: {
+                                      ...formData.batch,
+                                      cpulimit: Number(e.target.value),
+                                    },
+                                  });
+                                }}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
-                              <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
-                                GPU Support
-                              </label>
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Limit : ( 1-5 )
+                              </p>
                             </div>
-                          </div>
-                        </div>
+                            <div className="col-span-6 sm:col-span-6 ">
+                              <label
+                                htmlFor="region"
+                                className="block text-base font-medium text-gray-700 mb-3"
+                              >
+                                Additional Features
+                              </label>
+
+                              <div className="flex">
+                                <div className="flex items-center mr-4">
+                                  <input
+                                    id="inline-checkbox"
+                                    type="checkbox"
+                                    value="internet"
+                                    onChange={handleChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+
+                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    Internet Access
+                                  </label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                  <input
+                                    id="inline-2-checkbox"
+                                    type="checkbox"
+                                    value="root"
+                                    onChange={handleChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    Root Access
+                                  </label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                  <input
+                                    id="inline-2-checkbox"
+                                    type="checkbox"
+                                    value="gpu"
+                                    onChange={handleChange}
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    GPU Support
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        ) : null}
+
+                        {/*  exisiting batch details */}
+                        {batchstat === "existing" ? (
+                          <>
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Select Bacth Name
+                              </label>
+                              <select
+                                id="inputState"
+                                name="batchid"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                onChange={(e) => {
+                                  
+                                  slicedata(e.target.value);
+
+                                
+                                }}
+                              >
+                                <option value="choose">Choose...</option>
+
+                                {batch
+                                  ? batch.map(function (data, key) {
+                                      return (
+                                        <option key={key} value={data._id}>
+                                          {data.batchname}
+                                        </option>
+                                      );
+                                    })
+                                  : null}
+                              </select>
+
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Select a existing batch
+                              </p>
+                            </div>
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="city"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Bacth Description
+                              </label>
+                              <textarea
+                                type="text"
+                                value={
+                                  singlebatch && batchstat === "existing"
+                                    ? singlebatch.batchdescription
+                                    : ""
+                                }
+                                readOnly
+                                cols={40}
+                                rows="10"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Explain briefly about the batch
+                              </p>
+                            </div>
+
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Select Container Image
+                              </label>
+                              <select
+                                id="inputState"
+                                value={
+                                  singlebatch && batchstat === "existing"
+                                    ? singlebatch.imageData._id
+                                    : ""
+                                }
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                disabled
+                              >
+                                <option value="none" selected>
+                                  chooose .....
+                                </option>
+                                {image
+                                  ? image.map(function (data, key) {
+                                      return (
+                                        <option key={key} value={data._id}>
+                                          {data.imagename}
+                                        </option>
+                                      );
+                                    })
+                                  : null}
+                              </select>
+
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                If image name doesnt existing then add it ... !
+                              </p>
+                            </div>
+
+                            <div className="col-span-6 sm:col-span-2">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Batch Start Date
+                              </label>
+
+                              <input
+                                type="text"
+                                value={singlebatch ? singlebatch.startdate : ""}
+                                readOnly
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Batch End Date
+                              </label>
+
+                              <input
+                                type="text"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                value={singlebatch ? singlebatch.enddate : ""}
+                                readOnly
+                              />
+                            </div>
+                            <div className="col-span-6 sm:col-span-2">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                Total Days
+                              </label>
+                              <input
+                                type="number"
+                                value={singlebatch ? singlebatch.totaldays : 0}
+                                readOnly
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                            </div>
+                            <div className="col-span-6 sm:col-span-6">
+                              <label
+                                htmlFor="first-name"
+                                className="block text-base font-bold text-gray-700"
+                              >
+                                CPU limit
+                              </label>
+                              <input
+                                type="number"
+                                value={singlebatch ? singlebatch.cpulimit : 0}
+                                readOnly
+                                min="1"
+                                max="5"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              />
+                              <p
+                                id="helper-text-explanation"
+                                className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                              >
+                                Limit : ( 1-5 )
+                              </p>
+                            </div>
+                            <div className="col-span-6 sm:col-span-6 ">
+                              <label
+                                htmlFor="region"
+                                className="block text-base font-medium text-gray-700 mb-3"
+                              >
+                                Additional Features
+                              </label>
+
+                              <div className="flex">
+                                <div className="flex items-center mr-4">
+                                  <input
+                                    id="inline-checkbox"
+                                    type="checkbox"
+                                    value="internet"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+
+                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    Internet Access
+                                  </label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                  <input
+                                    id="inline-2-checkbox"
+                                    type="checkbox"
+                                    value="root"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    Root Access
+                                  </label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                  <input
+                                    id="inline-2-checkbox"
+                                    type="checkbox"
+                                    value="gpu"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                  />
+                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    GPU Support
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        ) : null}
 
                         <div className="col-span-6 sm:col-span-6 ">
                           <label
@@ -528,33 +787,35 @@ export const New_container = () => {
                             Individual user or Group User
                           </label>
 
-                          <div class="flex">
-                            <div class="flex items-center mr-4">
+                          <div className="flex">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-radio"
                                 type="radio"
+                                required
                                 name="inline-radio-group"
-                                onChange={() => setuserstat('individual')}
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                checked={userstat==='individual'}
+                                onChange={() => setuserstat("individual")}
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-radio"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                htmlFor="inline-radio"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                               >
                                 Individual
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
                                 id="inline-2-radio"
                                 type="radio"
-                                onChange={() => setuserstat('group')}
+                                onChange={() => setuserstat("group")}
                                 name="inline-radio-group"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                               />
                               <label
-                                for="inline-2-radio"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                htmlFor="inline-2-radio"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                               >
                                 Group
                               </label>
@@ -562,7 +823,7 @@ export const New_container = () => {
                           </div>
                         </div>
 
-                        {userstat === 'individual' ? (
+                        {userstat === "individual" ? (
                           <>
                             <div className="col-span-6 sm:col-span-3">
                               <label
@@ -573,10 +834,16 @@ export const New_container = () => {
                               </label>
                               <input
                                 type="text"
-                                name='email'
-                                onChange={(e) =>  { setFormData({ ...formData, userdetails: { ...formData.userdetails , email :e.target.value }
-                                });
-                               }}
+                                name="email"
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    userdetails: {
+                                      ...formData.userdetails,
+                                      email: e.target.value,
+                                    },
+                                  });
+                                }}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -596,9 +863,15 @@ export const New_container = () => {
                               <input
                                 type="text"
                                 name="name"
-                                onChange={(e) =>  { setFormData({ ...formData, userdetails: { ...formData.userdetails , name :e.target.value }
-                                });
-                               }}
+                                onChange={(e) => {
+                                  setFormData({
+                                    ...formData,
+                                    userdetails: {
+                                      ...formData.userdetails,
+                                      name: e.target.value,
+                                    },
+                                  });
+                                }}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -618,8 +891,12 @@ export const New_container = () => {
                               <input
                                 type="text"
                                 name="containerpassword"
-                                onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
-
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    [e.target.name]: e.target.value,
+                                  })
+                                }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                               />
                               <p
@@ -632,7 +909,7 @@ export const New_container = () => {
                           </>
                         ) : null}
 
-                        {userstat === 'group' ? (
+                        {userstat === "group" ? (
                           <div className="col-span-6 sm:col-span-6 ">
                             <label
                               htmlFor="region"
@@ -657,7 +934,7 @@ export const New_container = () => {
                                   <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                                     <span className="font-semibold">
                                       Click to upload
-                                    </span>{' '}
+                                    </span>{" "}
                                     or drag and drop
                                   </p>
                                   <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -685,7 +962,7 @@ export const New_container = () => {
                             </button>
                             <button
                               type="button"
-                              onClick={() => navigate('/admin/image/')}
+                              onClick={() => navigate("/admin/image/")}
                               className="inline-block px-6 w-full py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                             >
                               Cancel
@@ -728,5 +1005,5 @@ export const New_container = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
