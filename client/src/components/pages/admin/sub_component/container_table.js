@@ -4,6 +4,12 @@ import MaterialTable from "material-table";
 export const Container_table = () => {
 
 
+  // TODO: remove cpulimit and gpu support
+  
+  // TODO: add csv import to react
+
+  // 
+
     const [tableData,setTableData]=useState([
         {container_id:"#356512441211sdf1",user_name:"kishore",batch_name:"Linux Training Batch - I",image_name:"editing desktop",container_name:"remote_192CT120",container_status:"running",gpu_support:"YES",cpu_limit:5},
         {container_id:"356512441211sdf1",user_name:"kumar",batch_name:"Linux Training Batch - I",image_name:"kali desktop",container_name:"remote_192CT120",container_status:"stopped",gpu_support:"NO",cpu_limit:4},
@@ -27,8 +33,8 @@ export const Container_table = () => {
       </span>
     
     },
-        {title:"Cpu Limit",field:"cpu_limit"},
-        {title:"GPU Support",field:"gpu_support",lookup:{YES:"YES",NO:"NO"}},
+        // {title:"Cpu Limit",field:"cpu_limit"},
+        // {title:"GPU Support",field:"gpu_support",lookup:{YES:"YES",NO:"NO"}},
                 
       ]
     

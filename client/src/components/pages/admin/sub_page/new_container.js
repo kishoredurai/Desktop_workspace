@@ -21,13 +21,19 @@ export const New_container = () => {
 
 
 
+// TODO: Add websocket for create container
+
+// FIXME: 
+
+//  BUG: 
+
 
 
   /// date and total days
 
 
   let totalDays = 0
-  const [enddate , setEnddate] = useState(new Date());
+  const [enddate , setEnddate] = useState();
   const [startdate , setStartdate] = useState(new Date());
   const [total,setTotal] = useState(0);
 
@@ -46,7 +52,7 @@ export const New_container = () => {
       let end = new Date(enddate);
       let diffTime = Math.abs(end - start);
       let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-     
+      diffDays = diffDays+1;
         setFormData({
           ...formData,
           batch: {
@@ -72,6 +78,9 @@ export const New_container = () => {
 
 
   // check box value set
+
+  const items = ['internet_access', 'root_access', 'gpu_support'];
+ 
   const [checkedValues, setCheckedValues] = useState([]);
 
   const handleChange = (event) => {
@@ -88,7 +97,7 @@ export const New_container = () => {
   const slicedata = (id) => {
     var slice = batch.find((item) => item._id === id);
     setSinglebatch(slice);
-
+    console.log(slice)
     setFormData({
       ...formData,
       batchid: id,
@@ -150,7 +159,7 @@ export const New_container = () => {
     if(batchstat === 'new')
         setFormData({
           ...formData,
-          batch: { ...formData.batch, add_features: checkedValues },
+          batch: { ...formData.batch, addfeatures: checkedValues },
         });
 
     // console.log(checkedValues);
@@ -167,24 +176,28 @@ export const New_container = () => {
 
 
   useEffect(() => {
+
     if(batchstat === 'new')
     {
      
         delete formData['batchid'];
-        delete formData['add_features'];
+        // delete formData['add_features'];
         delete formData['batch'];
         delete formData['userdetails'];
         delete formData['containerpassword'];
 
      
-      
+      setFormData({
+          ...formData,
+          batch: { ...formData.batch, addfeatures: checkedValues },
+        });
 
     }
     else
     {
      
       delete formData['batchid'];
-      delete formData['add_features'];
+      delete formData['addfeatures'];
       delete formData['batch'];
       delete formData['userdetails'];
       delete formData['containerpassword']; 
@@ -551,7 +564,7 @@ export const New_container = () => {
                                   <input
                                     id="inline-checkbox"
                                     type="checkbox"
-                                    value="internet"
+                                    value="internet_access"
                                     onChange={handleChange}
                                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                   />
@@ -564,7 +577,7 @@ export const New_container = () => {
                                   <input
                                     id="inline-2-checkbox"
                                     type="checkbox"
-                                    value="root"
+                                    value="root_access"
                                     onChange={handleChange}
                                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                   />
@@ -576,7 +589,7 @@ export const New_container = () => {
                                   <input
                                     id="inline-2-checkbox"
                                     type="checkbox"
-                                    value="gpu"
+                                    value="gpu_support"
                                     onChange={handleChange}
                                     className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                   />
@@ -771,40 +784,49 @@ export const New_container = () => {
                               </label>
 
                               <div className="flex">
-                                <div className="flex items-center mr-4">
+                                
+                                { singlebatch && singlebatch.addfeatures ? (
+                                  items.map((item) => (
+                                  <div key={item} className="flex items-center mr-4">
+                                    <input
+                                      type="checkbox"
+                                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                      checked={singlebatch.addfeatures.indexOf(item) !== -1}
+                                    
+                                    />
+                                    
+                                    <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                    {item}
+                                  </label>
+                                  </div>
+                                ))):(
+                                  items.map((item) => (
+                                    <div key={item} className="flex items-center mr-4">
+                                      <input
+                                        type="checkbox"
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                                           
+                                     />
+                                      
+                                      <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
+                                      {item}
+                                    </label>
+                                    </div>
+                                  ))
+                                )
+                              }
+                                {/* <div className="flex items-center mr-4">
                                   <input
                                     id="inline-checkbox"
                                     type="checkbox"
                                     value="internet"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                   />
 
                                   <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
                                     Internet Access
                                   </label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                  <input
-                                    id="inline-2-checkbox"
-                                    type="checkbox"
-                                    value="root"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                  />
-                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
-                                    Root Access
-                                  </label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                  <input
-                                    id="inline-2-checkbox"
-                                    type="checkbox"
-                                    value="gpu"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                  />
-                                  <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">
-                                    GPU Support
-                                  </label>
-                                </div>
+                                </div> */}
+                             
                               </div>
                             </div>
                           </>

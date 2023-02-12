@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <>
-      <Disclosure as="nav" className="sticky top-0 bg-light-800 shadow-lg">
+      <Disclosure as="nav" className="bg-light-800 shadow-lg">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
