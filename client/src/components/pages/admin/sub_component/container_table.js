@@ -1,10 +1,34 @@
   import React from "react";
 import { useState } from "react";
 import MaterialTable from "material-table";
+import { useEffect } from "react";
 export const Container_table = () => {
 
 
-  // TODO: remove cpulimit and gpu support
+  const [container,setContainer]=useState();
+
+    // container details fetch
+    const fetchData = () => {
+      fetch("http://localhost:5000/api/container/list")
+
+        .then(response => {
+          return response.json()
+        })
+        .catch((error) => {
+          alert("Unable to connect Backend")
+         })
+        .then(data => {
+          setContainer(data);
+          
+        })
+    }
+  
+    useEffect(() => {
+      fetchData()
+    }, [])
+
+
+
   
   // TODO: add csv import to react
 
@@ -21,18 +45,23 @@ export const Container_table = () => {
       ]);
     
       const columns=[
-        {title:"Container ID",field:"container_id",},
-        {title:"User Name",field:"user_name",},
-        {title:"Batch Name",field:"batch_name",},
-        {title:"Container Name",field:"container_name",},
-        {title:"Image Name",field:"image_name",},
-        {title:"Container Status",field:"container_status",lookup:{running:"Running",stopped:"Stopped"},render:(rowData)=>
+        {title:"Container ID",field:"containerid"},
+        {title:"Container User",field:"userData.name"},
+        {title:"Batch Name",field:"batchData.batchname",},
+        {title:"Container Name",field:"containername",},
+        {title:"Image Name",field:"batchData.imageData.imagename",},
+        {title:"Start Date",field:"batchData.startdate",},
+
+        {title:"Container Status",field:"status",lookup:{running:"running",stopped:"stopped"},render:(rowData)=>
         <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"
-        style={{background:rowData.container_status.localeCompare("running")==0?"Green":"red"}} >
-        {rowData.container_status}
+        style={{background:rowData.status.localeCompare("running")==0?"Green":"red"}} >
+        {rowData.status}
       </span>
+      
     
     },
+    {title:"Admin Name",field:"adminData.name",},
+
         // {title:"Cpu Limit",field:"cpu_limit"},
         // {title:"GPU Support",field:"gpu_support",lookup:{YES:"YES",NO:"NO"}},
                 
@@ -76,7 +105,7 @@ showSelectAllCheckbox: true, showTextRowsSelected: false,columnsButton:true,
 
 
 }}
-        columns={columns} data={tableData}
+        columns={columns} data={container}
         actions={[
          
         {icon:'edit',

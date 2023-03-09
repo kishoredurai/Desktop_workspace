@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { admin_navigation } from '../../constants/credentails'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../images/logo.png'
+import { Navigate } from 'react-router-dom'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -34,6 +35,8 @@ const Admin_header = () => {
 
     profile()
   }, [])
+
+  if (!sessionStorage.getItem("admin_key")) return <Navigate to="/" />;
 
   return (
     <>

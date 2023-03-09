@@ -4,7 +4,7 @@ function Test() {
   const ws = useRef(null);
 
   useEffect(() => {
-    ws.current = new WebSocket('ws://10.10.237.159:5000/dashboard/mem');
+    ws.current = new WebSocket('ws://localhost:5000/dashboard/sysinfo');
 
     ws.current.onopen = () => {
       console.log('WebSocket connected');

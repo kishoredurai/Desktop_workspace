@@ -14,9 +14,9 @@ export const New_container = () => {
 
   const [singlebatch, setSinglebatch] = useState();
   // form data
-
+  var item_value = JSON.parse(sessionStorage.getItem('admin_key'))
   const [formData, setFormData] = useState({
-    adminid: "63cc1fb67b2822fa6b320c8c"
+    adminId: item_value.userid
   });
 
 
@@ -125,8 +125,15 @@ export const New_container = () => {
         return res.json();
       })
       .then((data) => {
+        if(data.message)
+        {
+          console.log("no data")
+        }
+        else
+        {
         console.log(data);
         setImage(data);
+        }
       });
   };
 
@@ -424,8 +431,7 @@ export const New_container = () => {
                                 <option value="none" selected>
                                   chooose .....
                                 </option>
-                                {image
-                                  ? image.map(function (data, key) {
+                                {image? image.map(function (data, key) {
                                       return (
                                         <option key={key} value={data._id}>
                                           {data.imagename}
@@ -681,7 +687,7 @@ export const New_container = () => {
                                 id="inputState"
                                 value={
                                   singlebatch && batchstat === "existing"
-                                    ? singlebatch.imageData._id
+                                    ? singlebatch.imagedata._id
                                     : ""
                                 }
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

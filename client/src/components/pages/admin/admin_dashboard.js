@@ -1,7 +1,109 @@
 import React from 'react'
 import Admin_header from '../../layout/header/admin_header'
+import { useEffect,useRef,useState } from 'react';
 
 export const Admin_dasboard = () => {
+
+  const ws = useRef(null);
+
+  const [sysinfo,setSysinfo] = useState();
+  const [batch,setbatch] = useState();
+
+  useEffect(() => {
+    ws.current = new WebSocket('ws://localhost:5000/dashboard/sysinfo');
+
+    ws.current.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    ws.current.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    ws.current.onmessage = (event) => {
+      setSysinfo(JSON.parse(event.data));
+      console.log(event.data);
+    };
+
+    return () => {
+      ws.current.close();
+    };
+  }, []);
+
+
+
+
+
+  ///batch deetails table
+
+  const renderTable = () => {
+    return batch &&  batch.map((batchs,i) => {
+      return (
+        <>
+          <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <td className="p-4 w-4 border-r">
+          <div className="flex items-center border-r">
+            <input
+              id="checkbox-table-search-1"
+              type="checkbox"
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="checkbox-table-search-1" className="sr-only">
+              checkbox
+            </label>
+          </div>
+        </td>
+        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r">
+        {batchs.batchname}
+  </th>
+        <td className="py-4 px-6 border-r">      {batchs.totaldays}
+</td>
+       
+        <td className="py-4 px-6 border-r">
+          <div className="flex items-center">
+            <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
+            {batchs.startdate}
+
+          </div>
+        </td>
+        <td className="py-4 px-6">
+          <a
+            href="#"
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            Show Details
+          </a>
+        </td> 
+      </tr>
+        </>
+      );
+    });
+  };
+
+
+
+
+  /// fetch batch details
+
+  const fetchData = () => {
+    fetch("http://localhost:5000/api/batch/list")
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+        setbatch(data);
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
   return (
     <>
       <Admin_header />
@@ -46,68 +148,71 @@ export const Admin_dasboard = () => {
           <div className="grid gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
             <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
               <div className="p-3 mr-4 bg-green-500 text-white rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-12 h-12">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
 </svg>
 
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  {sysinfo?sysinfo.cpucores:0}
                 </p>
                 <p className="flex px-5 text-sm font-normal text-gray-800">
-                  Running Containers
+                 System Total Core
                 </p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
               <div className="p-3 mr-4 bg-red-500 text-white rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-10 h-10">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
 </svg>
 
 
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                {sysinfo?sysinfo.freestorage:0}
+
                 </p>
                 <p className="flex px-5 text-sm font-normal text-gray-800">
-                  Innactive Containers
+                  Free storage in system
                 </p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
               <div className="p-3 mr-4 bg-blue-500 text-white rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-10 h-10">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" />
 </svg>
 
 
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                {sysinfo?sysinfo.totalswap:0}
+
                 </p>
                 <p className="flex px-5 text-sm font-normal text-center text-gray-800">
-                  CPU Core
+                  Total Swap memory
                 </p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
               <div className="p-3 mr-4 bg-orange-500 text-white rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-10 h-10">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
 </svg>
 
 
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                {sysinfo?sysinfo.freeswap:0}
+
                 </p>
                 <p className="flex px-5 text-sm font-normal text-gray-800">
-                  Host Memory
+                  Total Free Swap
                 </p>
               </div>
             </div>
@@ -536,138 +641,10 @@ export const Admin_dasboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-4 w-4 border-r">
-                        <div className="flex items-center border-r">
-                          <input
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r">
-                    Kali linux Desktop
-                </th>
-                      <td className="py-4 px-6 border-r">ubuntu</td>
-                     
-                      <td className="py-4 px-6 border-r">
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
-                          Active
-                        </div>
-                      </td>
-                      <td className="py-4 px-6">
-                        <a
-                          href="#"
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit user
-                        </a>
-                      </td> 
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-4 w-4 border-r">
-                        <div className="flex items-center">
-                          <input
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Kali linux Desktop
-                </th>
-                      <td className="py-4 px-6 border-r">ubuntu</td>
-                  
+                  {renderTable()}
 
-                      <td className="py-4 px-6 border-r">
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
-                          Active
-                        </div>
-                      </td>
-                      <td className="py-4 px-6">
-                        <a
-                          href="#"
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit user
-                        </a>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-4 w-4 border-r">
-                        <div className="flex items-center">
-                          <input
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Kali linux Desktop
-                </th>
-                      <td className="py-4 px-6 border-r">ubuntu</td>
-                    
+                   
 
-                      <td className="py-4 px-6 border-r">
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
-                          Active
-                        </div>
-                      </td>
-                      <td className="py-4 px-6">
-                        <a
-                          href="#"
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit user
-                        </a>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-4 w-4 border-r">
-                        <div className="flex items-center">
-                          <input
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Kali linux Desktop
-                </th>
-                      <td className="py-4 px-6 border-r float-center">55</td>
-               
-
-                      <td className="py-4 px-6 border-r">
-                        10-05-2002
-                      </td>
-                      <td className="py-4 px-6">
-                        <a
-                          href="#"
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit user
-                        </a>
-                      </td>
-                    </tr>
 
                   </tbody>
                 </table>

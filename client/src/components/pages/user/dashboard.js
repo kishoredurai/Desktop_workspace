@@ -8,7 +8,6 @@ export const Dashboard = () => {
   const [showModal, setShowModal] = useState(false)
 
 
-  // TODO : add auto return to login if session not exsist
 
   return (
     <>

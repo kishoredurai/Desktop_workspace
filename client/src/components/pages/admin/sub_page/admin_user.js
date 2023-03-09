@@ -431,7 +431,6 @@ export const AdminUser = () => {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       />
                     </div>
-                        {/* BUG: radio button not changes on click chek it */}
                     <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Account Status :
@@ -442,7 +441,7 @@ export const AdminUser = () => {
                             id="inline-radio"
                             type="radio"
                             name="requiregpu"
-                            checked={singleuser.accound_status===true?true:false}
+                            defaultChecked={singleuser.accound_status===true?true:false}
                             onClick={(e) =>   setFormData({ ...formData, [e.target.name]: true })}
 
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -460,7 +459,7 @@ export const AdminUser = () => {
                             type="radio"
                             name="requiregpu"
                             required
-                            checked={singleuser.accound_status===false?true:false}
+                            defaultChecked={singleuser.accound_status===false?true:false}
 
                             onClick={(e) =>   setFormData({ ...formData, [e.target.name]: false })}
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"

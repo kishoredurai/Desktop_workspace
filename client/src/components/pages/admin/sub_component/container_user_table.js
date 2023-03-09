@@ -2,11 +2,41 @@ import React from "react";
 import { useState } from "react";
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+
+
 export const Container_user_table = () => {
 
   const navigate = useNavigate()
 
-  // TODO: remove user username in table
+  const [user , setUser] =useState(); 
+
+
+
+
+
+
+
+  const fetchData = () => {
+    fetch("http://localhost:5000/api/admin/user/list")
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
 
 
     const [tableData,setTableData]=useState([
@@ -69,7 +99,7 @@ export const Container_user_table = () => {
     ]);
     
       const columns=[
-        {title:"Profile",field:"user_image",
+        {title:"Profile",field:"data.imageurl",
         
         render: rowData => <th
         scope="row"
@@ -77,28 +107,38 @@ export const Container_user_table = () => {
       >
         <img
           className="w-10 h-10 rounded-full"
-          src={rowData.user_image}
+          src={rowData.data.imageurl?rowData.data.imageurl:"https://cdn4.iconfinder.com/data/icons/green-shopper/1068/user.png"}
           alt="Jese image"
         />
         <div className="pl-3">
-          <div className="text-base font-semibold">{rowData.user_name}</div>
+          <div className="text-base font-semibold">{rowData.name}</div>
           
         </div>
       </th>
         
       ,filtering:false},
-        {title:"User ID",field:"user_id",},
-        {title:"User Name",field:"user_name",},
-        {title:"User Email",field:"user_email",},
-        {title:"User Contact",field:"user_contact",},
-        {title:"user Status",field:"user_status",lookup:{true:"Active",false:"blocked"},render:(rowData)=>
+        {title:"User ID",field:"_id",},
+        {title:"Name",field:"name",},
+        {title:"User Email",field:"email",},
+        {title:"User Contact",field:"data.phoneno",},
+
+     
+
+        {title:"user Status",field:"accound_status",lookup:{true:"Active",false:"blocked"},render:(rowData)=>
         <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"
-        style={{background:rowData.user_status.localeCompare("true")==0?"Green":"red"}} >
-        {rowData.user_status}
+        style={{background:rowData.accound_status===true?"Green":"red"}} >
+        {rowData.accound_status===true?"Active":"Blocked"}
       </span>
     
     },
-      
+    {title:"Activation Status",field:"data.phoneno",render:(rowData)=>
+    <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded"
+    style={{background:rowData.data.phoneno?"Green":"red"}} >
+    {rowData.data.phoneno?"Activated":"Not Activated"}
+  </span>
+
+},
+
       ]
     
     
@@ -139,7 +179,7 @@ showSelectAllCheckbox: true, showTextRowsSelected: false,columnsButton:true,
 
 
 }}
-        columns={columns} data={tableData}
+        columns={columns} data={user}
         actions={[
          
         {icon:'edit',
