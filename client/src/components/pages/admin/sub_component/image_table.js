@@ -62,7 +62,33 @@ export const Image_table = () => {
         fetchData()
       }, [])
 
+      // TODO add condition for return error
 
+      const deleteimage = (id) => {
+        fetch("http://localhost:5000/api/image/delete/"+id, {
+          method: "delete",
+          headers: {
+            "Content-type": "application/JSON",
+          },
+        })
+        .catch((error) => {
+          alert("Unable to connect Backend")
+         })
+          .then((res) => {
+            if (res.status >= 400) {
+              throw new Error("Server responds with error!");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            if (data["message"]==="success") {
+              alert("done");
+            } else {
+              alert("no");
+            }
+          });
+      }
+    
 
 
     return(
@@ -120,7 +146,18 @@ rowStyle:(data,index)=>index%2==0?{background:"#f5f5f5"}:null
 
 {icon:'delete',
 tooltip:"Delete Image ",
-onClick:(e,data)=>console.log(data),
+onClick:(e,data)=>{
+  if(data.length === 1)
+  {
+    console.log(data.length);
+    deleteimage(data[0]._id);
+    fetchData();
+   }
+  else
+    alert("select only one data")
+
+
+},
 },
   ]}
   

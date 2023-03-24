@@ -61,7 +61,7 @@ export const Admin_dasboard = () => {
        
         <td className="py-4 px-6 border-r">
           <div className="flex items-center">
-            <div className="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{' '}
+          
             {batchs.startdate}
 
           </div>
@@ -629,7 +629,7 @@ export const Admin_dasboard = () => {
                         Batch Name
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
-                        Total User
+                        Total Days
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
                         Initiated Date

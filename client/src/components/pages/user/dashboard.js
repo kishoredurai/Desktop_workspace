@@ -2,10 +2,144 @@ import React from 'react'
 import Header from '../../layout/header/header'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useEffect } from 'react'
 export const Dashboard = () => {
   const navigate = useNavigate()
 
   const [showModal, setShowModal] = useState(false)
+  const [container,setContainer] = useState();
+
+  const [password,setPassword] = useState();
+
+  const [totalcontainer,setTotalcontainer] = useState(0);
+  const [runningcontainer,setRunningcontainer] = useState(0);
+  const [terminatedcontainer,setTerminatedcontainer] = useState(0);
+  const [stoppedcontainer,setStoppedcontainer] = useState(0);
+
+
+  const renderdata = () => {
+    return container && container.map((data,i) => {
+    return(
+      <>
+        <div key={i}
+      className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+      aria-hidden="true"
+      onClick={() => getcredentails(data._id)}
+    >
+      <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
+        <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
+          {data.batchdetails._id}
+        </h2>
+        <h2 className="text-lg font-bold text-gray-800">
+          {data.batchdetails.batchname}
+        </h2>
+        <h2 className="text-xs pt-1 mb-1">
+          <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded">
+            {data.status}
+          </span>
+        </h2>
+        <p className="text-sm pt-2 text-gray-600">
+        {data.batchdetails.batchdescription}
+
+        </p>
+
+      
+
+        <div className="mt-4 grid  grid-cols-12 ">
+          <div className="col-span-6  md:col-span-2">
+            <div className="text-sm">
+              System : &nbsp;
+              <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
+                Ubuntu
+              </span>
+            </div>
+          </div>
+          <div className="col-span-6 md:col-span-2 ">
+            <div className="text-sm">
+              Total Days : &nbsp;
+              <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
+                {data.batchdetails.totaldays}
+              </span>
+            </div>
+          </div>
+          <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
+            <div className="text-sm">
+              End Date : &nbsp;
+              <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
+              {data.batchdetails.enddate}
+
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </>
+    )
+    })
+  }
+
+
+  const getcredentails = (id) => {
+
+    fetch("http://localhost:5000/api/user/containerpass", {
+      method: "post",
+      body: JSON.stringify( 	
+      {
+        "containerid": id
+      }),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+        setPassword(data);
+        console.log(data);
+      });
+
+      setShowModal(true)
+  };
+
+
+  const fetchData = () => {
+    var item_value = JSON.parse(sessionStorage.getItem("item_key"));
+
+    fetch("http://localhost:5000/api/user/containerlist", {
+      method: "post",
+      body: JSON.stringify( 	
+      {
+        "userid": item_value.userid
+      }),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+        setContainer(data);
+        setRunningcontainer(data.filter(obj => obj.status === 'running').length);
+        setTerminatedcontainer(data.filter(obj => obj.status === 'terminated').length);
+        setStoppedcontainer(data.filter(obj => obj.status === 'stopped').length);
+
+        setTotalcontainer(data.length);
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
 
@@ -28,7 +162,7 @@ export const Dashboard = () => {
                 <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
                   Filter Options : &nbsp;
                   <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600  text-white rounded-full">
-                    1
+                    {totalcontainer}
                   </span>
                 </h5>
 
@@ -45,7 +179,7 @@ export const Dashboard = () => {
                     <label className="ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
                       Active
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        1
+                      {runningcontainer}
                       </span>
                     </label>
                   </div>
@@ -60,7 +194,7 @@ export const Dashboard = () => {
                     <label className="block ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
                       Inactive
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        1
+                        {stoppedcontainer}
                       </span>
                     </label>
                   </div>
@@ -75,7 +209,7 @@ export const Dashboard = () => {
                     <label className="block ml-2 text-sm  text-gray-900 dark:text-gray-300 w-full">
                       Terminated
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        1
+                        {terminatedcontainer}
                       </span>
                     </label>
                   </div>
@@ -85,163 +219,8 @@ export const Dashboard = () => {
           </div>
 
           <div className="sm:col-span-18 py-2 max-w-96 flex justify-center text-6xl rounded-xl  flex flex-col items-center ">
-            <div
-              className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
-              aria-hidden="true"
-              onClick={() => setShowModal(true)}
-            >
-              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
-                  2016-05-18T16:00:00Z
-                </h2>
-                <h2 className="text-lg font-bold text-gray-800">
-                  Android Studio Class
-                </h2>
-                <h2 className="text-xs pt-1 mb-1">
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded">
-                    Running
-                  </span>
-                </h2>
-                <p className="text-sm pt-2 text-gray-600">
-                  Ubuntu is a free and open source operating system and Linux
-                  distribution based on Debian.
-                </p>
-
-              
-
-                <div className="mt-4 grid  grid-cols-12 ">
-                  <div className="col-span-6  md:col-span-2">
-                    <div className="text-sm">
-                      System : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
-                        Ubuntu
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-6 md:col-span-2 ">
-                    <div className="text-sm">
-                      Total Days : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
-                        55
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
-                    <div className="text-sm">
-                      End Date : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        2022-05-15
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
-              aria-hidden="true"
-              onClick={() => console.log('sshi')}
-            >
-              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
-                  2016-05-18T16:00:00Z
-                </h2>
-                <h2 className="text-lg font-bold text-gray-800">
-                  Ubuntu Machine
-                </h2>
-                <h2 className="text-xs pt-2 mb-1">
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-400 text-white rounded">
-                    Inactive
-                  </span>
-                </h2>
-                <p className="text-sm pt-2 text-gray-600">
-                  Ubuntu is a free and open source operating system and Linux
-                  distribution based on Debian. Ubuntu is offered in three
-                  official editions: Ubuntu Desktop for personal computers,
-                  Ubuntu Server for servers and the cloud, and Ubuntu Core for
-                  Internet of things devices
-                </p>
-
-                <div className="mt-4 grid  grid-cols-12 ">
-                  <div className="col-span-6  md:col-span-2">
-                    <div className="text-sm">
-                      System : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
-                        Ubuntu
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-6 md:col-span-2 ">
-                    <div className="text-sm">
-                      Total Days : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
-                        55
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
-                    <div className="text-sm">
-                      Created Date : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        2022-05-15
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="btn pt-4 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
-              aria-hidden="true"
-              onClick={() => console.log('sshi')}
-            >
-              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
-                  2016-05-18T16:00:00Z
-                </h2>
-                <h2 className="text-lg font-bold text-gray-800">
-                  Linux Training Batch
-                </h2>
-                <h2 className="text-xs pt-1 mb-1">
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded">
-                    Terminated
-                  </span>
-                </h2>
-                <p className="text-sm pt-2 text-gray-600">
-                  Ubuntu is a free and open source operating system and Linux
-                  distribution based on Debian. Ubuntu is offered in three
-                  official editions: Ubuntu Desktop for personal computers,
-                  Ubuntu Server for
-                </p>
-
-                <div className="mt-4 grid  grid-cols-12 ">
-                  <div className="col-span-6  md:col-span-2">
-                    <div className="text-sm">
-                      System : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded">
-                        Ubuntu
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-6 md:col-span-2 ">
-                    <div className="text-sm">
-                      Total Days : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-lime-500  text-white rounded">
-                        55
-                      </span>
-                    </div>
-                  </div>
-                  <div className="col-span-10 pt-2 md:pt-0 sm:pt-0  md:col-span-2 ">
-                    <div className="text-sm">
-                      Created Date : &nbsp;
-                      <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-fuchsia-600 text-white rounded">
-                        2022-05-15
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+           {renderdata()}
+           
           </div>
         </div>
       </div>
@@ -278,25 +257,25 @@ export const Dashboard = () => {
                     Platform Login Credentials
                   </h3>
                   <div
-                    class="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
+                    className="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
                     role="alert"
                   >
                     <svg
                       aria-hidden="true"
-                      class="flex-shrink-0 inline w-5 h-5 mr-3"
+                      className="flex-shrink-0 inline w-5 h-5 mr-3"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                     </svg>
-                    <span class="sr-only">Info</span>
+                    <span className="sr-only">Info</span>
                     <div>
-                      <span class="font-medium">Info alert!</span> Copy the user
+                      <span className="font-medium">Info alert!</span> Copy the user
                       Credentials to login to system
                     </div>
                   </div>
@@ -306,11 +285,11 @@ export const Dashboard = () => {
                         Your Username :
                       </label>
                       <input
-                        type="email"
+                        type="text"
                         name="email"
                         id="email"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        value="name@company.com"
+                        value="cloud"
                         readOnly
                       />
                     </div>
@@ -322,7 +301,7 @@ export const Dashboard = () => {
                         type="text"
                         name="password"
                         id="password"
-                        value="kishore@123"
+                        value={password?password.containerpassword:null}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         readOnly
                       />
