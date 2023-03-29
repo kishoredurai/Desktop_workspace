@@ -74,7 +74,7 @@ export const Container_image = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  2
                 </p>
                 <p className="flex px-10 text-sm font-normal text-gray-800">
                  Total Images
@@ -96,7 +96,7 @@ export const Container_image = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  2
                 </p>
                 <p className="flex px-8 text-sm font-normal text-gray-800">
                   Active Images
@@ -130,7 +130,7 @@ export const Container_image = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  0
                 </p>
                 <p className="flex px-14 text-sm font-normal text-center text-gray-800">
                   Inactive Images
