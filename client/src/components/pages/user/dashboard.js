@@ -3,14 +3,17 @@ import Header from '../../layout/header/header'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+
 export const Dashboard = () => {
   const navigate = useNavigate()
+  
 
   const [showModal, setShowModal] = useState(false)
   const [container,setContainer] = useState();
 
   const [password,setPassword] = useState();
-  const [cid,setCid] = useState();
+  const [cport,setCport] = useState();
 
   const [totalcontainer,setTotalcontainer] = useState(0);
   const [runningcontainer,setRunningcontainer] = useState(0);
@@ -25,7 +28,28 @@ export const Dashboard = () => {
         <div key={i}
       className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
       aria-hidden="true"
-      onClick={() => getcredentails(data._id)}
+      
+      onClick={() =>{
+        
+       if( data.status==="running" )
+       {
+        getcredentails(data._id);
+       }
+       else
+       {
+        toast.warning('Container is Stopped !!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+
+       }
+      }}
     >
       <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
         <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
@@ -35,7 +59,8 @@ export const Dashboard = () => {
           {data.batchdetails.batchname}
         </h2>
         <h2 className="text-xs pt-1 mb-1">
-          <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded">
+          <span className=
+          {data.status==="stopped"?"text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded":"text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded"}>
             {data.status}
           </span>
         </h2>
@@ -101,8 +126,10 @@ export const Dashboard = () => {
       })
       .then((data) => {
         setPassword(data);
-        setCid(id);
+        var link = "https:localhost:"+data.containerport+"?resize=remote";
+        setCport(link);
         console.log(data);
+
       });
 
       setShowModal(true)
@@ -147,6 +174,7 @@ export const Dashboard = () => {
 
   return (
     <>
+    <ToastContainer/>
       <Header />
       <div className="w-full">
         <header className="bg-white ">
@@ -314,7 +342,11 @@ export const Dashboard = () => {
                       <button
                         type="button"
                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={() => navigate('/home/?id='+cid)}
+                        onClick={() => {
+                          setShowModal(false)
+
+                           window.open(cport, '_blank', 'noopener,noreferrer');
+                        }}
                       >
                         Proceed
                       </button>

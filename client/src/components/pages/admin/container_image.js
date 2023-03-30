@@ -4,8 +4,38 @@ import { useState } from 'react'
 import MaterialTable from 'material-table'
 import { Image_table } from './sub_component/image_table'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 export const Container_image = () => {
   const navigate = useNavigate();
+  const [activeimage,setActiveimage] = useState(0);
+  const [inactiveimage,SetInactiveimage] = useState(0);
+  const [totalimage,setTotalimage] = useState(0);
+
+
+
+    
+  const fetchData = () => {
+    fetch("http://localhost:5000/api/image/list")
+
+      .then(response => {
+        return response.json()
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend")
+       })
+      .then(data => {
+        setActiveimage(data.filter(obj => obj.imagestatus ==='active').length);
+        setTotalimage(data.length);
+        SetInactiveimage(data.filter(obj => obj.imagestatus ==='downloading').length);
+  
+        
+      })
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <>
       <Admin_header />
@@ -74,7 +104,7 @@ export const Container_image = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  2
+                  {totalimage}
                 </p>
                 <p className="flex px-10 text-sm font-normal text-gray-800">
                  Total Images
@@ -96,7 +126,7 @@ export const Container_image = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  2
+                  {activeimage}
                 </p>
                 <p className="flex px-8 text-sm font-normal text-gray-800">
                   Active Images
@@ -130,7 +160,7 @@ export const Container_image = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  0
+                  {inactiveimage}
                 </p>
                 <p className="flex px-14 text-sm font-normal text-center text-gray-800">
                   Inactive Images

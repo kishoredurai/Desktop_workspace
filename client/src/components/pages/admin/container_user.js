@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Admin_header from "../../layout/header/admin_header";
 import { Container_user_table } from "./sub_component/container_user_table";
+import { useEffect } from "react";
 export const Conatiner_user = () => {
+
+  const [activeuser,setActiveuser] = useState(0);
+  const [inactiveuser,setInactiveuser] = useState(0);
+  const [totaluser,setTotaluser] = useState(0);
+
+
+  const fetchData = () => {
+    fetch("http://localhost:5000/api/admin/user/list")
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+      setActiveuser(data.filter(obj => obj.data.phoneno !='').length);
+      setTotaluser(data.length);
+      setInactiveuser(data.filter(obj => obj.data.phoneno === '').length);
+
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
     return(
         <>
         <Admin_header />
@@ -73,7 +102,7 @@ export const Conatiner_user = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  {activeuser}
                 </p>
                 <p className="flex px-10 text-sm font-normal text-gray-800">
                  Activated users
@@ -94,7 +123,7 @@ export const Conatiner_user = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  {inactiveuser}
                 </p>
                 <p className="flex px-8 text-sm font-normal text-gray-800">
                   Non Activated Users
@@ -114,7 +143,7 @@ export const Conatiner_user = () => {
               </div>
               <div className="text-center float-center items-center">
                 <p className="mb-2 text-5xl font-medium text-gray-900 items-center">
-                  58
+                  {totaluser}
                 </p>
                 <p className="flex px-14 text-sm font-normal text-center text-gray-800">
                   Total Users

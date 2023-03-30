@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Admin_header from "../../../layout/header/admin_header";
 import { useNavigate } from "react-router-dom";
 import loading_gif from "../../../images/icons8-rhombus-loasder.gif";
+import { ToastContainer, toast } from 'react-toastify';
 
 export const New_container = () => {
   const [showModal, setShowModal] = useState(false);
@@ -250,10 +251,31 @@ export const New_container = () => {
       })
       .then((data) => {
         if (data["message"] === "success") {
-          alert("done");
-          navigate("/admin/container/")
+          
+          toast.success('Container Created Successfully !!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+          setTimeout(() => {
+            navigate("/admin/container/")   
+          }, 3000);
         } else {
-          alert("no");
+          toast.danger('Error in creating Container!!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
         }
       });
   };
@@ -269,6 +291,8 @@ export const New_container = () => {
   const navigate = useNavigate();
   return (
     <>
+         <ToastContainer />
+
       <Admin_header />
       <div className="w-full">
         <header className="bg-white ">

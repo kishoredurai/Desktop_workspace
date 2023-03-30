@@ -2,6 +2,8 @@
 import { useState } from "react";
 import MaterialTable from "material-table";
 import { useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+
 export const Container_table = () => {
 
 
@@ -26,6 +28,126 @@ export const Container_table = () => {
     useEffect(() => {
       fetchData()
     }, [])
+
+
+     // start container
+
+     const startcontainer = (id) => {
+      fetch("http://localhost:5000/api/container/start", {
+        method: "post",
+        body: JSON.stringify({id:id}),
+
+        headers: {
+          "Content-type": "application/JSON",
+        },
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend")
+       })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (data["message"]==="success") {
+            
+            toast.success('Container Started Sucessfully!!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
+          
+          } else {
+            alert("no");
+          }
+        });
+    }
+
+     // Stop container
+
+    const stopcontainer = (id) => {
+      fetch("http://localhost:5000/api/container/stop", {
+        method: "post",
+        body: JSON.stringify({id:id}),
+
+        headers: {
+          "Content-type": "application/JSON",
+        },
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend")
+       })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (data["message"]==="success") {
+            toast.warning('Container Stopped Sucessfully!!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
+            
+          } else {
+            alert("no");
+          }
+        });
+    }
+
+
+    // delete container
+
+    const deletecontainer = (id) => {
+      fetch("http://localhost:5000/api/container/delete/"+id, {
+        method: "delete",
+        headers: {
+          "Content-type": "application/JSON",
+        },
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend")
+       })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (data["message"]==="success") {
+            toast.error('Container Terminated Sucessfully!!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              });
+            setTimeout(() => {
+              window.location.reload(); 
+            }, 3000);
+          } else {
+            alert("no");
+          }
+        });
+    }
 
 
 
@@ -75,6 +197,8 @@ export const Container_table = () => {
 
     return(
         <>
+             <ToastContainer />
+
           <MaterialTable 
         options={{
             
@@ -114,15 +238,52 @@ showSelectAllCheckbox: true, showTextRowsSelected: false,columnsButton:true,
       },
       {icon:'send',
         tooltip:"Start Container",
-       onClick:(e,data)=>console.log(data),
+       onClick:(e,data)=>{
+        console.log(data)
+        if(data.length === 1)
+        {
+          console.log(data.length);
+          startcontainer(data[0]._id)
+          setTimeout(() => {
+            window.location.reload(); 
+          }, 3000);
+          // window.location.reload();      
+        }
+        else
+          alert("select only one data"); 
+      },
       },
       {icon:'stop',
       tooltip:"Stop Container",
-     onClick:(e,data)=>console.log(data),
+     onClick:(e,data)=>{
+      console.log(data)
+      if(data.length === 1)
+      {
+        console.log(data.length);
+        stopcontainer(data[0]._id);
+        setTimeout(() => {
+          window.location.reload(); 
+        }, 3000);
+        // window.location.reload(); 
+           }
+      else
+        alert("select only one data"); 
+    },
     },
       {icon:'delete',
       tooltip:"Terminate Container ",
-     onClick:(e,data)=>console.log(data),
+     onClick:(e,data)=>
+     {
+      console.log(data)
+      if(data.length === 1)
+      {
+        console.log(data.length);
+        deletecontainer(data[0]._id)
+        // window.location.reload();      
+      }
+      else
+        alert("select only one data"); 
+    },
     },
         ]}
         
