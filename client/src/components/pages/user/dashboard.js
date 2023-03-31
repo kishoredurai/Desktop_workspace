@@ -11,7 +11,7 @@ export const Dashboard = () => {
 
   const [showModal, setShowModal] = useState(false)
   const [container,setContainer] = useState();
-
+  const [Allcontainer,setAllContainer] = useState();
   const [password,setPassword] = useState();
   const [cport,setCport] = useState();
 
@@ -22,6 +22,43 @@ export const Dashboard = () => {
 
 
   const renderdata = () => {
+
+    if(container && container.length <= 0)
+    {
+      return (
+        <>
+         <>
+        <div 
+      className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+      aria-hidden="true"
+      
+      
+    >
+      <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
+        <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
+ 
+        </h2>
+        <h2 className="text-lg font-bold text-gray-800">
+         No data available
+        </h2>
+        <h2 className="text-xs pt-1 mb-1">
+          
+        </h2>
+        <p className="text-sm pt-2 text-gray-600">
+
+        </p>
+
+      
+
+        
+      </div>
+    </div>
+      </>
+
+        </>
+      )
+    }
+    
     return container && container.map((data,i) => {
     return(
       <>
@@ -105,6 +142,21 @@ export const Dashboard = () => {
     })
   }
 
+  // filter
+
+  const filterdata = (type) => {
+
+    
+    const myarray = Allcontainer.filter((obj) => {
+      return obj.status === type;
+    })
+
+    setContainer(myarray);
+    renderdata();
+    console.log('stopped')
+
+  }
+
 
   const getcredentails = (id) => {
 
@@ -156,7 +208,14 @@ export const Dashboard = () => {
         alert("Unable to connect Backend");
       })
       .then((data) => {
-        setContainer(data);
+        setAllContainer(data);
+
+        const myarray = data.filter((obj) => {
+          return obj.status === 'running';
+        })
+
+        setContainer(myarray);
+
         setRunningcontainer(data.filter(obj => obj.status === 'running').length);
         setTerminatedcontainer(data.filter(obj => obj.status === 'terminated').length);
         setStoppedcontainer(data.filter(obj => obj.status === 'stopped').length);
@@ -169,6 +228,7 @@ export const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
 
 
 
@@ -197,34 +257,22 @@ export const Dashboard = () => {
                 </h5>
 
                 <fieldset className="pt-3 mr-40 w-full">
-                  <div className="flex items-center mb-5 ">
-                    <input
-                      id="country-option-1"
-                      type="radio"
-                      name="filter"
-                      value="active"
-                      className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                    />
-
-                    <label className="ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
-                      Active
-                      <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                      {runningcontainer}
-                      </span>
-                    </label>
-                  </div>
+                  
                   <div className="flex items-center mb-5">
                     <input
                       id="country-option-1"
                       type="radio"
                       name="filter"
                       value="inactive"
+                      
+                      onChange={() =>filterdata('running')}
+
                       className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label className="block ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
-                      Inactive
+                      Running
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        {stoppedcontainer}
+                        {runningcontainer}
                       </span>
                     </label>
                   </div>
@@ -233,13 +281,30 @@ export const Dashboard = () => {
                       id="country-option-1"
                       type="radio"
                       name="filter"
-                      value="terminated"
+                     
+                      onChange={() =>filterdata('stopped')}
                       className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label className="block ml-2 text-sm  text-gray-900 dark:text-gray-300 w-full">
+                      Stopped
+                      <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
+                        {stoppedcontainer}
+                      </span>
+                    </label>
+                  </div>
+                  <div className="flex items-center mb-5 ">
+                    <input
+                      id="country-option-1"
+                      type="radio"
+                      name="filter"
+                      onChange={() =>filterdata('terminated')}
+                      className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    />
+
+                    <label className="ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
                       Terminated
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        {terminatedcontainer}
+                      {terminatedcontainer}
                       </span>
                     </label>
                   </div>
