@@ -2,13 +2,88 @@ import React from "react";
 import Header from "../../../layout/header/header";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+
 export const New_feed = () => {
   const navigate = useNavigate();
+
+  // form data
+
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: '',
+    createdate: Date(),
+    status: 'created',
+    userid : '',
+  });
+
+
+  const submit_form = (event) => {
+    event.preventDefault();
+    // setDisable(true)
+    var item_value = JSON.parse(sessionStorage.getItem('item_key'))
+
+    formData['userid']=item_value.userid;
+    console.log(formData);
+
+    fetch("http://localhost:5000/api/token/create", {
+      method: "post",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
+    .catch((error) => {
+      alert("Unable to connect Backend")
+     })
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error("Server responds with error!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data["message"]==="success") {
+          toast.success('Token Created Successfully !!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+          setTimeout(() => {
+            navigate("/ticket")   
+          }, 3000);
+          // toast.success(' Image Created Successfully !!', {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          //   theme: "colored",
+          //   });
+          // navigate("/admin/image/")       
+
+        } else {
+          alert("no");
+        }
+      });
+
+
+  }
+
 
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
+    <ToastContainer></ToastContainer>
       <Header />
       <div className="w-full">
         <header className="bg-white ">
@@ -18,12 +93,13 @@ export const New_feed = () => {
             </h1>
           </div>
         </header>
-
+        <form onSubmit={submit_form}>
         <div className="grid sm:ml-8 px-2 sm:px-5 grid-flow-row sm:grid-flow-col gap-5 sm:gap-16 ">
+          
           <div className="flex justify-center text-6xl border-2 border-gray-300 rounded-lg shadow-lg bg-white flex flex-col items-center ">
             <div className="w-full md:h-full">
               <div className=" md:col-span-2 md:mt-0">
-                <form action="/">
+               
                   <div className="overflow-hidden shadow sm:rounded-md">
                     <div className="px-4 py-5 sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
@@ -36,10 +112,11 @@ export const New_feed = () => {
                           </label>
                           <textarea
                             type="text"
-                            name="city"
+                            name="title"
                             cols={400}
                             rows="1"
                             id="city"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                             autoComplete="address-level2"
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
@@ -60,10 +137,10 @@ export const New_feed = () => {
                           </label>
                           <textarea
                             type="text"
-                            name="city"
+                            name="description"
                             cols={40}
                             rows="10"
-                            id="city"
+                            onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
                             autoComplete="address-level2"
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
@@ -75,55 +152,37 @@ export const New_feed = () => {
                           </p>
                         </div>
 
-                        <div className="col-span-6 sm:col-span-6 ">
+                        <div className="col-span-6 sm:col-span-6">
                           <label
-                            htmlFor="region"
-                            className="block text-base font-medium text-gray-700 mb-3"
+                            htmlFor="first-name"
+                            className="block text-base font-bold text-gray-700"
                           >
                             Category
                           </label>
-                          
-                          <div className="flex">
-                            <div className="flex items-center mr-4">
-                              <input
-                                id="inline-checkbox"
-                                type="checkbox"
-                                value=""
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label
-                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
+                          <select
+                                id="inputState"
+                                name="category"
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                onChange={(e) =>   setFormData({ ...formData, [e.target.name]: e.target.value })}
+
                               >
-                                Not Working
-                              </label>
-                            </div>
-                            <div className="flex items-center mr-4">
-                              <input
-                                id="inline-2-checkbox"
-                                type="checkbox"
-                                value=""
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label
-                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
-                              >
-                                Login Issue
-                              </label>
-                            </div>
-                            <div className="flex items-center mr-4">
-                              <input
-                                id="inline-2-checkbox"
-                                type="checkbox"
-                                value=""
-                                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label
-                                className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300"
-                              >
-                                Blank Screen
-                              </label>
-                            </div>
-                          </div>
+                                <option value="choose">Choose...</option>
+
+                               
+                                        <option value="blank screen">blank screen
+                                        </option>
+                                        <option value="Login issue">Login issue
+                                        </option>
+                                        <option value="container error">Container error
+                                        </option>
+                                     
+                              </select>
+                          <p
+                            id="helper-text-explanation"
+                            className="mt-2 text-xs text-gray-500 dark:text-gray-400"
+                          >
+                            Select Proper Category
+                          </p>
                         </div>
 
                         <div className="col-span-6 sm:col-span-6 ">
@@ -172,9 +231,10 @@ export const New_feed = () => {
                       </div>
                     </div>
                   </div>
-                </form>
+                
               </div>
             </div>
+            
           </div>
 
           <div className="flex text-6xl  rounded-xl float-right max-w-lg">
@@ -190,6 +250,7 @@ export const New_feed = () => {
                       id="default-checkbox"
                       type="checkbox"
                       value=""
+                      required
                       className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
@@ -204,6 +265,7 @@ export const New_feed = () => {
                       id="default-checkbox"
                       type="checkbox"
                       value=""
+                      required
                       className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
@@ -217,7 +279,7 @@ export const New_feed = () => {
 
                 <div className="flex pt-4 ml-0 space-x-3 justify-center">
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-block w-full px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                   >
                     Submit
@@ -233,8 +295,11 @@ export const New_feed = () => {
               </div>
             </div>
           </div>
+         
         </div>
+        </form>
       </div>
+      
     </>
   );
 

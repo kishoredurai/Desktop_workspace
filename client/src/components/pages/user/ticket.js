@@ -2,8 +2,161 @@ import React from "react";
 import Header from "../../layout/header/header";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
 export const Ticket = () => {
   const navigate = useNavigate();
+
+  const [ticket,setTicket] = useState([]);
+const [ticketdata,setticketdata] = useState();
+
+  const [totalticket,setTotalTicket] = useState(0);
+  const [UnsolvedTicket,setUnsolvedTicket] = useState(0);
+  const [TerinatedTicket,setTerminatedTicket] = useState(0);
+  const [solvedTicket,setSolvedTicket] = useState(0);
+
+
+
+
+
+
+
+  const renderdata = () => {
+    
+    if(ticket.length < 0)
+    {
+      return (
+        <>
+         <>
+        <div 
+      className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+      aria-hidden="true"
+      
+      
+    >
+      <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
+        <h2 className="text-xs pt-2 float-right font-bold text-gray-400">
+ 
+        </h2>
+        <h2 className="text-lg font-bold text-gray-800">
+         No data available
+        </h2>
+        <h2 className="text-xs pt-1 mb-1">
+          
+        </h2>
+        <p className="text-sm pt-2 text-gray-600">
+
+        </p>
+
+      
+
+        
+      </div>
+    </div>
+      </>
+
+        </>
+      )
+    }
+
+
+    if(ticket.length > 0)
+        return ticket && ticket.map((data,i) => {
+      return(
+        <>
+           <div
+              className="btn pt-2 mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
+              aria-hidden="true"
+              // onClick={() => navigate("/ticket/details")}
+            >
+              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
+              <h2 className="text-xs sm:pt-0 mb-2 sm:float-right font-bold text-gray-400">
+                  {data._id}
+                </h2>
+                <h2 className="text-lg font-bold text-gray-800 mb-3">
+                 {data.title}
+                </h2>
+
+                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div
+                    className="h-4 bg-orange-600 rounded-full dark:bg-orange-500 text-xs font-bold text-blue-100 text-center"
+                    style={{ width: "15%" }}
+                  >
+                    {data.status}
+                  </div>
+                </div>
+                <p className="text-sm pt-2 text-gray-600">
+                 {data.description}
+                </p>
+                <div className="text-sm pt-3 text-gray-600">
+                  <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #{data.category}
+                  </span>
+                 
+                  <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
+{data.createdate}
+                  </h2>
+                </div>
+              </div>
+            </div>
+
+        </>
+        )
+      })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const fetchData = () => {
+    var item_value = JSON.parse(sessionStorage.getItem("item_key"));
+
+    fetch("http://localhost:5000/api/token/usertokens", {
+      method: "post",
+      body: JSON.stringify( 	
+      {
+        "userid": item_value.userid
+      }),
+      headers: {
+        "Content-type": "application/JSON",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+        setTicket(data);
+
+        const myarray = data.filter((obj) => {
+          return obj.status === 'created';
+        })
+
+        setticketdata(myarray);
+
+        setSolvedTicket(data.filter(obj => obj.status === 'closed').length);
+        setUnsolvedTicket(data.filter(obj => obj.status === 'created').length);
+        setTerminatedTicket(data.filter(obj => obj.status === 'declined').length);
+
+        setTotalTicket(data.length);
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -13,6 +166,7 @@ export const Ticket = () => {
       <div className="w-full">
         <header className="bg-white ">
           <div className="mx-auto py-4 mt-3 px-4 sm:px-6 lg:px-8">
+            
             <button
               type="button"
               onClick={() => navigate("/ticket/new")}
@@ -33,7 +187,7 @@ export const Ticket = () => {
                 <h5 className="text-gray-900 text-xl leading-tight font-medium mb-5">
                   Filters :
                   <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600  text-white rounded-full">
-                    1
+                    {totalticket}
                   </span>
                 </h5>
 
@@ -50,7 +204,7 @@ export const Ticket = () => {
                     <label className="ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
                       Solved
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        1
+                        {solvedTicket}
                       </span>
                     </label>
                   </div>
@@ -65,7 +219,7 @@ export const Ticket = () => {
                     <label className="block ml-2 text-sm text-gray-900 dark:text-gray-300 w-full">
                       Unsolved
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        1
+                        {UnsolvedTicket}
                       </span>
                     </label>
                   </div>
@@ -80,7 +234,7 @@ export const Ticket = () => {
                     <label className="block ml-2 text-sm  text-gray-900 dark:text-gray-300 w-full">
                       Terminated
                       <span className="float-right items-center text-xs inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-slate-400  text-white rounded-full">
-                        1
+                        {TerinatedTicket}
                       </span>
                     </label>
                   </div>
@@ -90,125 +244,7 @@ export const Ticket = () => {
           </div>
 
           <div className="sm:col-span-18 py-2 max-w-96 flex justify-center text-6xl rounded-xl  flex flex-col items-center">
-            <div
-              className="btn mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
-              aria-hidden="true"
-              onClick={() => navigate("/ticket/details")}
-            >
-              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-xs sm:pt-0 mb-2 sm:float-right font-bold text-gray-400">
-                  #2349493021
-                </h2>
-                <h2 className="text-lg font-bold text-gray-800 mb-3">
-                  Image Not Working
-                </h2>
-
-                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                  <div
-                    className="h-4 bg-red-600 rounded-md dark:bg-red-500 text-xs font-bold text-red-100 text-center"
-                    style={{ width: "100%" }}
-                  >
-                    DECLINED
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <img
-                    className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                    src="https://lh3.googleusercontent.com/a/AEdFTp4444J2XdbG9uMin98OFO93KzOBMHsc7axNj6M7Ig=s96-c"
-                    alt="Bordered avatar"
-                  />
-                  <p className="text-sm px-2 font-medium text-gray-600"> kishore D</p>
-                </div>
-
-                <div className="text-sm pt-3 text-gray-600">
-                  <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Machine
-                  </span>
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Installation
-                  </span>
-                  <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
-                    2016-05-18T16:00:00Z
-                  </h2>
-                </div>
-              </div>
-            </div>
-            <div
-              className="btn pt-2 mb-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
-              aria-hidden="true"
-              onClick={() => navigate("/ticket/details")}
-            >
-              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-lg font-bold text-gray-800 mb-3">
-                  Image Not Working
-                </h2>
-
-                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                  <div
-                    className="h-4 bg-yellow-600 rounded-full dark:bg-yellow-500 text-xs font-bold text-blue-100 text-center"
-                    style={{ width: "50%" }}
-                  >
-                    UNSOLVED
-                  </div>
-                </div>
-                <p className="text-sm pt-2 text-gray-600">
-                  Ubuntu is a free and open source operating system and Linux
-                  distribution based on Debian. Ubuntu is offered in three
-                  official editions: Ubuntu Desktop for personal computers,
-                  Ubuntu Server for servers and the cloud, and Ubuntu Core for
-                  Internet of things devices
-                </p>
-                <div className="text-sm pt-3 text-gray-600">
-                  <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Machine
-                  </span>
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Installation
-                  </span>
-                  <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
-                    2016-05-18T16:00:00Z
-                  </h2>
-                </div>
-              </div>
-            </div>
-            <div
-              className="btn pt-2 w-full md:h-full transform motion-safe:hover:-translate-y-1 motion-safe:hover:scale-40 transition ease-in-out duration-300"
-              aria-hidden="true"
-              onClick={() => navigate("/ticket/details")}
-            >
-              <div className="p-5 pt-4 border-2 hover:border-gray-400 border-gray-300 bg-white rounded-xl shadow-md">
-                <h2 className="text-lg font-bold text-gray-800 mb-3">
-                  Image Not Working
-                </h2>
-
-                <div className="mb-4 w-full h-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                  <div
-                    className="h-4 bg-green-600 rounded-full dark:bg-green-500 text-xs font-bold text-blue-100 text-center"
-                    style={{ width: "100%" }}
-                  >
-                    SOLVED
-                  </div>
-                </div>
-                <p className="text-sm pt-2 text-gray-600">
-                  Ubuntu is a free and open source operating system and Linux
-                  distribution based on Debian. Ubuntu is offered in three
-                  official editions: Ubuntu Desktop for personal computers,
-                  Ubuntu Server for servers and the cloud, and Ubuntu Core for
-                  Internet of things devices
-                </p>
-                <div className="text-sm pt-3 text-gray-600">
-                  <span className="mr-2 text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Machine
-                  </span>
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Installation
-                  </span>
-                  <h2 className="text-xs sm:pt-0 pt-4 sm:float-right font-bold text-gray-400">
-                    2016-05-18T16:00:00Z
-                  </h2>
-                </div>
-              </div>
-            </div>
+          {renderdata()}
           </div>
         </div>
       </div>
