@@ -1,11 +1,48 @@
 import { React, useState } from "react";
 
 import Header from "../../layout/header/header";
+import { useEffect } from "react";
 
 export const Profile = () => {
   const [profile,setProfile]=useState({});
   var item_value = JSON.parse(sessionStorage.getItem("item_key"));
 const pp=item_value.picture;
+
+const [profiles,setProfiles] = useState();
+
+const fetchData = () => {
+  var item_value = JSON.parse(sessionStorage.getItem("item_key"));
+
+  fetch("http://localhost:5000/api/user/getinfo", {
+    method: "post",
+    body: JSON.stringify( 	
+    {
+      "userid": item_value.userid
+    }),
+    headers: {
+      "Content-type": "application/JSON",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      alert("Unable to connect Backend");
+    })
+    .then((data) => {
+      setProfiles(data);
+
+    
+      console.log(data);
+    });
+};
+
+useEffect(() => {
+  fetchData();
+}, []);
+
+
+
   return (
     <>
     <Header />
@@ -63,6 +100,7 @@ const pp=item_value.picture;
                           name="first-name"
                           id="first-name"
                           autoComplete="given-name"
+                          placeholder={profiles?profiles.name:null}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -79,6 +117,8 @@ const pp=item_value.picture;
                           name="email-address"
                           id="email-address"
                           autoComplete="email"
+                          placeholder={profiles?profiles.email:null}
+
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -98,20 +138,14 @@ const pp=item_value.picture;
                           type="text"
                           name="region"
                           id="region"
+                          placeholder={profiles?profiles.data.phoneno:null}
+
                           autoComplete="address-level1"
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
 
-                      <div className="col-span-6 sm:col-span-3">
-                        <label
-                          htmlFor="postal-code"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Active Batches
-                        </label>
-                        
-                      </div>
+                      
                     </div>
                   </div>
 

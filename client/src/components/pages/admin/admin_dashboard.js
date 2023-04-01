@@ -8,6 +8,7 @@ export const Admin_dasboard = () => {
 
   const [sysinfo,setSysinfo] = useState();
   const [batch,setbatch] = useState();
+  const [ticket,setTicket] = useState();
 
   useEffect(() => {
     ws.current = new WebSocket('ws://localhost:5000/dashboard/sysinfo');
@@ -81,7 +82,72 @@ export const Admin_dasboard = () => {
   };
 
 
+// batchs details asdf
 
+const renderDatas = () => {
+  return ticket &&  ticket.map((data,i) => {
+    return (
+      <>
+       <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td className="p-4 w-4 border-r">
+                        <div className="flex items-center ">
+                          <input
+                            id="checkbox-table-search-1"
+                            type="checkbox"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          />
+                          <label for="checkbox-table-search-1" className="sr-only">
+                            checkbox
+                          </label>
+                        </div>
+                      </td>
+                      <th
+                        scope="row"
+                        className="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src={data.userdetails.data.imageurl}
+                          alt="Jese image"
+                        />
+                        <div className="pl-3">
+                          <div className="text-base font-semibold">{data.userdetails.name}</div>
+                          <div className="font-normal text-sm truncate text-gray-500">
+                            {data.userdetails.email}
+                          </div>
+                        </div>
+                      </th>
+                      <td className="py-4 px-6 border-r">{data.title}</td>
+                      <td className="py-4 px-6 border-r">{data.description}</td>
+
+                      <td className="py-4 px-6 border-r">
+                        <div className='flex gap-2'>
+                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
+                    #{data.category}
+                  </span>
+                
+                        </div>
+                      </td>
+
+                      <td className="py-4 px-6 border-r">
+                        <div className="flex items-center">
+                          <div className={data.status==='created'?"h-2.5 w-2.5 rounded-full bg-green-600 mr-2":"h-2.5 w-2.5 rounded-full bg-red-600 mr-2"}></div>
+                          {data.status}
+                        </div>
+                      </td>
+                      <td className="py-4 px-6 border-r">{data.category}</td>
+
+                      <td className="py-4 px-6">
+                      <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+  <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span className="sr-only">Icon description</span>
+</button>
+                      </td>
+                    </tr>
+      </>
+    );
+  });
+};
 
   /// fetch batch details
 
@@ -99,8 +165,23 @@ export const Admin_dasboard = () => {
       });
   };
 
+  const fetchDbdata = () => {
+    fetch("http://localhost:5000/api/token/list")
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        alert("Unable to connect Backend");
+      })
+      .then((data) => {
+        setTicket(data);
+        console.log(data);
+      });
+  };
+
   useEffect(() => {
     fetchData();
+    fetchDbdata();
   }, []);
 
 
@@ -284,10 +365,17 @@ export const Admin_dasboard = () => {
                         Title
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
+                        description
+                      </th>
+
+                      <th scope="col" className="py-3 px-6 border-r">
                         Category
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
                         Ticket Status
+                      </th>
+                      <th scope="col" className="py-3 px-6 border-r">
+                        created date
                       </th>
                       <th scope="col" className="py-3 px-6 border-r">
                         Action
@@ -295,61 +383,8 @@ export const Admin_dasboard = () => {
                     </tr>
                   </thead>
                   <tbody className='border-b'>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-4 w-4 border-r">
-                        <div className="flex items-center ">
-                          <input
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        className="border-r flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        <img
-                          className="w-10 h-10 rounded-full"
-                          src="https://lh3.googleusercontent.com/a/AEdFTp4444J2XdbG9uMin98OFO93KzOBMHsc7axNj6M7Ig=s96-c"
-                          alt="Jese image"
-                        />
-                        <div className="pl-3">
-                          <div className="text-base font-semibold">Neil Sims</div>
-                          <div className="font-normal text-sm truncate text-gray-500">
-                            kishore.ct19@bitsathy.ac.in
-                          </div>
-                        </div>
-                      </th>
-                      <td className="py-4 px-6 border-r">Image Not Working</td>
-                      <td className="py-4 px-6 border-r">
-                        <div className='flex gap-2'>
-                      <span className=" text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Machine
-                  </span>
-                  <span className="text-xs inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                    #Machine
-                  </span>
-                        </div>
-                      </td>
-
-                      <td className="py-4 px-6 border-r">
-                        <div className="flex items-center">
-                          <div className="h-2.5 w-2.5 rounded-full bg-red-600 mr-2"></div>{' '}
-                          Declined
-                        </div>
-                      </td>
-                      <td className="py-4 px-6">
-                      <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-  <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-  <span className="sr-only">Icon description</span>
-</button>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    {renderDatas()}
+                    {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <td className="p-4 w-4 border-r">
                         <div className="flex items-center ">
                           <input
@@ -564,7 +599,7 @@ export const Admin_dasboard = () => {
                           Edit user
                         </button>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
             
